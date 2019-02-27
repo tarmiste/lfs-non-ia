@@ -1,0 +1,405 @@
+diff -Naur a/chapter05/binutils-pass1.xml b/chapter05/binutils-pass1.xml
+--- a/chapter05/binutils-pass1.xml	2018-02-17 18:12:41.282766612 +0000
++++ b/chapter05/binutils-pass1.xml	2018-02-17 18:07:33.749075487 +0000
+@@ -146,11 +146,13 @@
+     tests at this point are minimal since the programs from this
+     first pass will soon be replaced by those from the second.</para>
+ 
+-    <para>If building on x86_64, create a symlink to ensure the sanity of
++    <para>If building on 64 bit, create a symlink to ensure the sanity of
+     the toolchain:</para>
+ 
+ <screen><userinput remap="install">case $(uname -m) in
+   x86_64) mkdir -v /tools/lib &amp;&amp; ln -sv lib /tools/lib64 ;;
++  ppc64) mkdir -v /tools/lib &amp;&amp; ln -sv lib /tools/lib64 ;;
++  aarch64) mkdir -v /tools/lib &amp;&amp; ln -sv lib /tools/lib64 ;;
+ esac</userinput></screen>
+ 
+     <para>Install the package:</para>
+diff -Naur a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
+--- a/chapter05/gcc-pass1.xml	2018-02-17 18:12:41.278766432 +0000
++++ b/chapter05/gcc-pass1.xml	2018-02-17 18:07:33.749075487 +0000
+@@ -68,7 +68,8 @@
+     class="directory">/usr/include</filename> from GCC's include search path.
+     Issue:</para>
+ 
+-<screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
++<screen><userinput remap="pre">for file in \
++$(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h -o -name linux-eabi.h -o -name linux-elf.h -o -name aarch64-linux.h)
+ do
+   cp -uv $file{,.orig}
+   sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&amp;@g' \
+@@ -97,7 +98,7 @@
+     prevents unexpected changes to the original files in case the commands are
+     inadvertently run twice.</para>
+ 
+-    <para>Finally, on x86_64 hosts, set the default directory name for
++    <para>Finally, on 64 bit hosts, set the default directory name for
+     64-bit libraries to <quote>lib</quote>:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
+@@ -105,6 +106,24 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+  ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++ ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-7.3.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-7.3.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-7.3.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+ <!--
+@@ -149,6 +168,7 @@
+     --disable-libssp                               \
+     --disable-libvtv                               \
+     --disable-libstdcxx                            \
++    --enable-secureplt                             \
+     --enable-languages=c,c++</userinput></screen>
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+diff -Naur a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
+--- a/chapter05/gcc-pass2.xml	2018-02-17 18:12:41.278766432 +0000
++++ b/chapter05/gcc-pass2.xml	2018-02-17 18:07:33.749075487 +0000
+@@ -70,7 +70,8 @@
+     use the one installed in <filename
+     class="directory">/tools</filename>.</para>
+ 
+-<screen><userinput remap="pre">for file in gcc/config/{linux,i386/linux{,64}}.h
++<screen><userinput remap="pre">for file in \
++$(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h -o -name linux-eabi.h -o -name linux-elf.h -o -name aarch64-linux.h)
+ do
+   cp -uv $file{,.orig}
+   sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&amp;@g' \
+@@ -83,7 +84,7 @@
+   touch $file.orig
+ done</userinput></screen>
+ 
+-    <para>If building on x86_64, change the default directory name for 64-bit
++    <para>If building for 64 bit, change the default directory name for 64-bit
+     libraries to <quote>lib</quote>:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
+@@ -91,6 +92,24 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+   ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++ ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-7.3.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-7.3.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-7.3.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+     <para>As in the first build of GCC it requires the GMP, MPFR and MPC
+@@ -130,6 +149,7 @@
+     --disable-libstdcxx-pch                        \
+     --disable-multilib                             \
+     --disable-bootstrap                            \
++    --enable-secureplt      \
+     --disable-libgomp</userinput></screen>
+ 
+     <variablelist>
+diff -Naur a/chapter05/glibc.xml b/chapter05/glibc.xml
+--- a/chapter05/glibc.xml	2018-02-17 18:12:41.278766432 +0000
++++ b/chapter05/glibc.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -57,6 +57,7 @@
+       --build=$(../scripts/config.guess) \
+       --enable-kernel=&min-kernel;             \
+       --with-headers=/tools/include      \
++      --disable-werror      \
+       libc_cv_forced_unwind=yes          \
+       libc_cv_c_cleanup=yes</userinput></screen>
+ 
+@@ -173,6 +174,14 @@
+ 
+ <screen><userinput>rm -v dummy.c a.out</userinput></screen>
+ 
++    <para>Create symlink for arm </para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++    armv*)
++        # ln -sv ld-2.27.so $LFS/tools/lib/ld-linux.so.3  # Needed ?
++    ;;
++esac</userinput></screen>
++
+   </caution>
+ 
+   <note><para>Building Binutils in the section after next will serve as an
+diff -Naur a/chapter06/adjusting.xml b/chapter06/adjusting.xml
+--- a/chapter06/adjusting.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/adjusting.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -16,13 +16,13 @@
+ 
+   <para>First, backup the <filename class="directory">/tools</filename> linker,
+   and replace it with the adjusted linker we made in chapter 5. We'll also create
+-  a link to its counterpart in
+-  <filename class="directory">/tools/$(uname -m)-pc-linux-gnu/bin</filename>:</para>
++  a link to its counterpart in <filename class="directory">/tools/$(gcc
++  -dumpmachine)/bin</filename>:</para>
+ 
+ <screen><userinput>mv -v /tools/bin/{ld,ld-old}
+-mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
++mv -v /tools/$(gcc -dumpmachine)/bin/{ld,ld-old}
+ mv -v /tools/bin/{ld-new,ld}
+-ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld</userinput></screen>
++ln -sv /tools/bin/ld /tools/$(gcc -dumpmachine)/bin/ld</userinput></screen>
+ 
+   <para>Next, amend the GCC specs file so that it points to the new
+   dynamic linker. Simply deleting all instances of <quote>/tools</quote> should
+diff -Naur a/chapter06/chapter06.xml b/chapter06/chapter06.xml
+--- a/chapter06/chapter06.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/chapter06.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -76,7 +76,6 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="groff.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="grub.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="less.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
+diff -Naur a/chapter06/creatingdirs.xml b/chapter06/creatingdirs.xml
+--- a/chapter06/creatingdirs.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/creatingdirs.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -25,6 +25,9 @@
+ 
+ case $(uname -m) in
+  x86_64) mkdir -v /lib64 ;;
++ ppc64) ln -sv lib /lib64
++      ln -sv lib /usr/lib64
++      ln -sv lib /usr/local/lib64 ;;
+ esac
+ 
+ mkdir -v /var/{log,mail,spool}
+diff -Naur a/chapter06/gcc.xml b/chapter06/gcc.xml
+--- a/chapter06/gcc.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/gcc.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -49,6 +49,24 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+   ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++ ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-7.3.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-7.3.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-7.3.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+     <para>Remove the symlink created earlier as the final gcc includes will be
+@@ -68,6 +86,7 @@
+              --enable-languages=c,c++ \
+              --disable-multilib       \
+              --disable-bootstrap      \
++             --enable-secureplt      \
+              --with-system-zlib</userinput></screen>
+ 
+     <para>Note that for other languages, there are some prerequisites that
+diff -Naur a/chapter06/glibc.xml b/chapter06/glibc.xml
+--- a/chapter06/glibc.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/glibc.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -71,6 +71,12 @@
+     required for the dynamic loader to function correctly:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
++    arm*)    GCC_INCDIR=/usr/lib/gcc/$(gcc -dumpmachine)/&gcc-version;/include
++    ;;
++    aarch64)    GCC_INCDIR=/usr/lib/gcc/$(gcc -dumpmachine)/&gcc-version;/include
++    ;;
++    ppc*)    GCC_INCDIR=/usr/lib/gcc/$(gcc -dumpmachine)/&gcc-version;/include
++    ;;
+     i?86)    GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/&gcc-version;/include
+             ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
+     ;;
+@@ -97,7 +103,6 @@
+ ../configure --prefix=/usr                          \
+              --disable-werror                       \
+              --enable-kernel=&min-kernel;                    \
+-             --enable-stack-protector=strong        \
+              libc_cv_slibdir=/lib
+ unset GCC_INCDIR</userinput></screen>
+ 
+@@ -125,7 +130,8 @@
+         <listitem>
+           <para>This option increases system security by adding 
+           extra code to check for buffer overflows, such as stack
+-          smashing attacks.</para>
++          smashing attacks.   This option does not work with 32bit
++          PowerPC machines as so is disabled</para>
+         </listitem>
+       </varlistentry>
+ 
+@@ -212,6 +218,14 @@
+ 
+ <screen><userinput remap="install">make install</userinput></screen>
+ 
++    <para>Create symlink for arm </para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++    armv*)
++        ln -sv ld-2.27.so /lib/ld-linux.so.3  # Needed ??
++    ;;
++esac</userinput></screen>
++
+     <para>Install the configuration file and runtime directory for
+     <command>nscd</command>:</para>
+ 
+diff -Naur a/chapter06/openssl.xml b/chapter06/openssl.xml
+--- a/chapter06/openssl.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/openssl.xml	2018-02-17 18:12:06.769215517 +0000
+@@ -45,11 +45,37 @@
+ 
+     <para>Prepare OpenSSL for compilation:</para>
+ 
+-<screen><userinput remap="configure">./config --prefix=/usr         \
++<screen><userinput remap="configure">case $(uname -m) in
++    ppc64) ./Configure linux-ppc64 --prefix=/usr         \
+          --openssldir=/etc/ssl \
+          --libdir=lib          \
+          shared                \
+-         zlib-dynamic</userinput></screen>
++         zlib-dynamic 
++         make depend  ;;
++    ppc) ./config --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic 
++         make depend  ;;
++     aarch64) ./Configure linux-aarch64 --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic 
++         make depend  ;;
++     arm) ./Configure linux-armv4 --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic 
++         make depend  ;;
++     *) ./config --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic  ;;
++esac</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+diff -Naur a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
+--- a/chapter06/revisedchroot.xml	2018-02-17 18:12:41.070757074 +0000
++++ b/chapter06/revisedchroot.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -47,13 +47,13 @@
+   libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
+   remove them now:</para>
+ 
+-<screen><userinput>rm -f /usr/lib/lib{bfd,opcodes}.a
+-rm -f /usr/lib/libbz2.a
+-rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
+-rm -f /usr/lib/libltdl.a
+-rm -f /usr/lib/libfl.a
+-rm -f /usr/lib/libfl_pic.a
+-rm -f /usr/lib/libz.a</userinput></screen>
++<screen><userinput>#rm -f /usr/lib/lib{bfd,opcodes}.a
++#rm -f /usr/lib/libbz2.a
++#rm -f /usr/lib/lib{com_err,e2p,ext2fs,ss}.a
++#rm -f /usr/lib/libltdl.a
++#rm -f /usr/lib/libfl.a
++#rm -f /usr/lib/libfl_pic.a
++#rm -f /usr/lib/libz.a</userinput></screen>
+ 
+   <para>There are also several files installed in the /usr/lib directory with a
+   file name extention of .la.  These are "libtool archive" files and generally
+diff -Naur a/chapter07/usage.xml b/chapter07/usage.xml
+--- a/chapter07/usage.xml	2018-02-17 18:12:41.074757254 +0000
++++ b/chapter07/usage.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -85,6 +85,9 @@
+ 4:2345:respawn:/sbin/agetty tty4 9600
+ 5:2345:respawn:/sbin/agetty tty5 9600
+ 6:2345:respawn:/sbin/agetty tty6 9600
++#
++# modify and enable following line for serial console.
++#s1:2:respawn:/sbin/agetty -L 115200 ttyS0 vt100
+ 
+ # End /etc/inittab</literal>
+ EOF</userinput></screen>
+diff -Naur a/chapter08/kernel.xml b/chapter08/kernel.xml
+--- a/chapter08/kernel.xml	2018-02-17 18:12:41.074757254 +0000
++++ b/chapter08/kernel.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -214,7 +214,7 @@
+ 
+     <para>Install the modules, if the kernel configuration uses them:</para>
+ 
+-<screen><userinput remap="install">make modules_install</userinput></screen>
++<screen><userinput remap="install">make INSTALL_MOD_STRIP=1 modules_install</userinput></screen>
+ 
+     <para>After kernel compilation is complete, additional steps are
+     required to complete the installation. Some files need to be copied to
+@@ -235,7 +235,13 @@
+     the automatic setup of the boot process described in the next section.  The
+     following command assumes an x86 architecture:</para>
+ 
+-<screen revision="sysv"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version;</userinput></screen>
++<screen revision="sysv"><userinput remap="install">case $(uname -m) in
++      x86_64) cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      *86) cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      ppc*) cp -iv vmlinux /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      arm*) cp -iv vmlinux /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      esac
++</userinput></screen>
+ 
+ <screen revision="systemd"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
+ 
+diff -Naur a/prologue/architecture.xml b/prologue/architecture.xml
+--- a/prologue/architecture.xml	2018-02-17 18:12:41.066756894 +0000
++++ b/prologue/architecture.xml	2018-02-17 18:07:33.753075663 +0000
+@@ -20,6 +20,10 @@
+ distribution can be installed and used as a host system on a 64-bit AMD/Intel
+ computer.</para>
+ 
++<para>This book is a modified version of the standard LFS book and contains 
++modifications to the text and instructions that are intended to aid in 
++the building of LFS for CPU architectures other than AMD/Intel.</para>
++
+ <para>Some other facts about 64-bit systems need to be added here. When
+ compared to a 32-bit system, the sizes of executable programs are slightly
+ larger and the execution speeds of arbitrary programs are only slightly faster.

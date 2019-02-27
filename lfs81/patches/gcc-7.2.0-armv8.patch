@@ -1,0 +1,17 @@
+diff -Naur orig/gcc/config.gcc new/gcc/config.gcc
+--- orig/gcc/config.gcc	2017-07-31 11:33:18.182361000 +0000
++++ new/gcc/config.gcc	2017-12-29 21:05:39.424666843 +0000
+@@ -1109,6 +1109,13 @@
+ 	    tmake_file="$tmake_file arm/t-linux-androideabi"
+ 	    ;;
+ 	esac
++	case ${target} in
++	arm*-*-*eabihf)
++	    with_cpu=${with_cpu:-cortex-a53}
++	    with_fpu=${with_fpu:-neon-fp-armv8}
++	    with_float=${with_float:-hard}
++	    ;;
++	esac
+ 	# The EABI requires the use of __cxa_atexit.
+ 	default_use_cxa_atexit=yes
+ 	with_tls=${with_tls:-gnu}

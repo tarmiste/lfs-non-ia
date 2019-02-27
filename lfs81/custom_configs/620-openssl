@@ -1,0 +1,79 @@
+# 620-openssl
+# 
+#
+#
+# The OpenSSL package contains management tools and libraries
+# relating to cryptography. These are useful for providing
+# cryptography functions to other packages, notably OpenSSH,
+# email applications and web browsers (for accessing HTTPS sites).
+#
+
+PKG="openssl"
+PKG_VERSION="1.1.0f"
+PKG_FILE="openssl-${PKG_VERSION}.tar.gz"
+URL="ftp://ftp.openssl.org/source/${PKG_FILE}"
+MD5="7b521dea79ab159e8ec879d2333369fa"
+for i in PATCH{1..10}; do
+   unset $i
+done
+PATCH1="http://anduin.linuxfromscratch.org/BLFS/other/certdata.txt 3046df7c5228321ac10e747dc3aa42ae"
+PATCH2="http://anduin.linuxfromscratch.org/BLFS/other/make-ca.sh-20170514 a21a04d6ff5c4645c748220dbaa9f221"
+
+( cat << "xEOFx"
+
+case $(uname -m) in
+    ppc64) ./Configure linux-ppc64 --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic 
+         make depend  ;;
+    ppc) ./config --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic 
+         make depend  ;;
+     aarch64) ./Configure linux-aarch64 --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic 
+         make depend  ;;
+     arm) ./Configure linux-armv4 --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic 
+         make depend  ;;
+     *) ./config --prefix=/usr         \
+         --openssldir=/etc/ssl \
+         --libdir=lib          \
+         shared                \
+         zlib-dynamic  ;;
+esac
+
+make
+#make test
+#sed -i 's# libcrypto.a##;s# libssl.a##' Makefile   # why is this commented?
+make MANDIR=/usr/share/man MANSUFFIX=ssl install &&
+install -dv -m755 /usr/share/doc/openssl-1.1.0f  &&
+cp -vfr doc/*     /usr/share/doc/openssl-1.1.0f
+
+#
+# Now install certificates
+#
+
+install -vdm755 /etc/ssl/local 
+#wget http://www.cacert.org/certs/root.crt &&
+#openssl x509 -in root.crt -text -fingerprint -setalias "CAcert Class 1 root" \
+#        -addtrust serverAuth -addtrust emailProtection -addtrust codeSigning \
+#        > /etc/ssl/local/CAcert_Class_1_root.pem
+
+install -vm755 ../make-ca.sh-20170514 /usr/sbin/make-ca.sh
+cp ../certdata.txt .
+/usr/sbin/make-ca.sh
+
+
+xEOFx
+) > tmp

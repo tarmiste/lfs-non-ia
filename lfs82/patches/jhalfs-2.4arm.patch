@@ -1,0 +1,12 @@
+diff -Naur jhalfs-2.4/LFS/master.sh jhalfs-2.4arm/LFS/master.sh
+--- jhalfs-2.4/LFS/master.sh	2017-03-10 20:23:57.000000000 +0000
++++ jhalfs-2.4arm/LFS/master.sh	2017-11-27 21:23:34.181637631 +0000
+@@ -52,7 +52,7 @@
+ 	echo "umask 022" >> \$(LUSER_HOME)/.bashrc && \\
+ 	echo "LFS=\$(MOUNT_PT)" >> \$(LUSER_HOME)/.bashrc && \\
+ 	echo "LC_ALL=POSIX" >> \$(LUSER_HOME)/.bashrc && \\
+-	echo "LFS_TGT=`uname -m`-lfs-linux-gnu" >> \$(LUSER_HOME)/.bashrc && \\
++	echo "LFS_TGT=`uname -m`-lfs-linux-gnueabihf" >> \$(LUSER_HOME)/.bashrc && \\
+ 	echo "PATH=/tools/bin:/bin:/usr/bin" >> \$(LUSER_HOME)/.bashrc && \\
+ 	echo "export LFS LC_ALL LFS_TGT PATH" >> \$(LUSER_HOME)/.bashrc && \\
+ 	echo "source $JHALFSDIR/envars" >> \$(LUSER_HOME)/.bashrc && \\

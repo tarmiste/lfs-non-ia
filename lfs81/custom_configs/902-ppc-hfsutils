@@ -1,0 +1,30 @@
+# 902-ppc-hfsutils
+# 
+#
+#
+# Any comments you wish to add
+#
+
+PKG="hfsutils"
+PKG_VERSION="3.2.6"
+PKG_FILE="hfsutils-3.2.6.tar.gz"
+URL="ftp://ftp.mars.org/pub/hfs/hfsutils-3.2.6.tar.gz"
+MD5="fa572afd6da969e25c1455f728750ec4"
+for i in PATCH{1..10}; do
+   unset $i
+done
+PATCH1="http://patches.clfs.org/sysvinit/hfsutils-3.2.6-fixes-1.patch 8519f11aada2f393609d529621a9f1b1"
+
+( cat << "xEOFx"
+
+patch -Np1 -i ../hfsutils-3.2.6-fixes-1.patch
+
+./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man
+
+make
+make install
+
+xEOFx
+) > tmp

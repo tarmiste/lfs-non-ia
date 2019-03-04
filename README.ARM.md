@@ -5,7 +5,7 @@
    The LFS_TGT value is different for ARM than it is for x86/PPC:
 
 *-lfs--linux-gnueabi   works for armv5
-*-lfs--linux-gnueabihf   works for armv6,armv7,armv8
+*-lfs--linux-gnueabihf   works for armv6,armv7
 *-lfs--linux-gnu   works for aarch64
 
    The various patches in this repository use the above LFT_TGT settings

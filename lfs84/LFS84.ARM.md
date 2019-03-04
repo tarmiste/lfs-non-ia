@@ -4,7 +4,6 @@
 armv5: not tried yet.
 armv6: not tried yet.
 armv7: built without problems.
-armv8: not tried yet.
 aarch64: not tried yet.
 
 the "gold" build in binutils chap06 requires a huge amount of time
@@ -18,7 +17,7 @@ jhalfs LFS_TGT value must be modified for ARM.  Edit the LFS/master.sh
 file and change LFS_TGT to:
 
 ..._gnueabi     for armv5
-..._gnueabihf   for armv6,v7, and v8
+..._gnueabihf   for armv6,v7
 ..._gnu   for aarch64  (no change needed for aarch64...)
 
 There is a jhalfs .patch file in patches that may be helpful in making
@@ -43,7 +42,7 @@ Then run jhalfs and point it at the patched book as it's 'working copy'
 This book patch does the following:
 
 1) Applies a patch to all gcc builds to enable hw floating point for
-armv6,v7 and v8.   armv5 does not have hw floating point.
+armv6 and v7.   armv5 does not have hw floating point.
 
 2) In Chapter 5 both passes of GCC build require a change to the 
 files that are modified under gcc/config .   The existing LFS book

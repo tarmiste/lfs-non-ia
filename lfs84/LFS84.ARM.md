@@ -2,9 +2,15 @@
 ## Notes regarding building LFS 8.4 on the ARM:
 
 armv5: not tried yet.
+
 armv6: not tried yet.
+
 armv7: built without problems.
-aarch64: not tried yet.
+
+aarch64 does not build expect.   This can be fixed by finding and 
+replacing config.guess and config.sub in the expect source tree
+with the most recent versions.  This is not part of the book patch
+yet.
 
 the "gold" build in binutils chap06 requires a huge amount of time
 on low RAM machines (due to swapping).  disabling gold in the binutils

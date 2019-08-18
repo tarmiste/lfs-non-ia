@@ -1,0 +1,43 @@
+# 900-ppc-mac-fdisk
+# 
+#
+#
+# Any comments you wish to add
+#
+
+PKG="mac-fdisk"
+PKG_VERSION="0.1-14"
+PKG_FILE="mac-fdisk_0.1.orig.tar.gz"
+URL="archive.debian.org/debian/pool/main/m/mac-fdisk/mac-fdisk_0.1.orig.tar.gz"
+MD5="24476329fe86ef6ccf222e233e2a99f1"
+for i in PATCH{1..10}; do
+   unset $i
+done
+PATCH1="archive.debian.org/debian/pool/main/m/mac-fdisk/mac-fdisk_0.1-14.diff.gz 38627c9f3ec0de51b7abd0fe5190aa85"
+PATCH2="http://ftp.fi.debian.org/gentoo-portage/sys-fs/mac-fdisk/files/big_pt.patch 186f12f4cbdb510acff893d4b411ed1c"
+PATCH3="http://ftp.fi.debian.org/gentoo-portage/sys-fs/mac-fdisk/files/largerthan2gb.patch 0a4dbdc46db2a3671528ee2b7fd2b854"
+PATCH4="http://ftp.fi.debian.org/gentoo-portage/sys-fs/mac-fdisk/files/mac-fdisk-0.1-headers.patch b318f44939ab6a8ac76420e8fed2ca45"
+PATCH5="http://ftp.fi.debian.org/gentoo-portage/sys-fs/mac-fdisk/files/mac-fdisk-0.1-r6-ppc64.patch b8792e47df0733cb13e5a348a2492428"
+PATCH6="http://ftp.fi.debian.org/gentoo-portage/sys-fs/mac-fdisk/files/mac-fdisk-0.1_p16-ppc64.patch de7710807fb180c066bbd014f68e0d64"
+PATCH7="http://ftp.fi.debian.org/gentoo-portage/sys-fs/mac-fdisk/files/mac-fdisk-amd64.patch a56e666344ff414173f485014900256d"
+
+( cat << "xEOFx"
+
+	zcat ../mac-fdisk_0.1-14.diff.gz | patch -p1
+
+        patch -p1 -i ../largerthan2gb.patch
+        patch -p1 -i ../mac-fdisk-0.1-headers.patch
+        # not for now... patch -p1 -i ../mac-fdisk-0.1-r6-ppc64.patch
+        patch -p1 -i ../mac-fdisk-amd64.patch
+        patch -p1 -i ../big_pt.patch
+
+        sed -i 's@^inline@@' fdisk.c
+
+        make -j1
+        make install
+        #install -D -m 644 mac-fdisk.8.in /usr/man/man8/mac-fdisk.8
+        #install -D -m 644 pmac-fdisk.8.in /usr/man/man8/pmac-fdisk.8 
+
+
+xEOFx
+) > tmp

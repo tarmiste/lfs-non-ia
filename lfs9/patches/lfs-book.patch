@@ -1,6 +1,6 @@
 diff -Naur a/chapter05/binutils-pass1.xml b/chapter05/binutils-pass1.xml
 --- a/chapter05/binutils-pass1.xml	2019-08-22 22:04:20.401783965 +0000
-+++ b/chapter05/binutils-pass1.xml	2019-08-22 22:07:34.725978175 +0000
++++ b/chapter05/binutils-pass1.xml	2019-08-22 22:41:28.504267119 +0000
 @@ -146,11 +146,13 @@
      tests at this point are minimal since the programs from this
      first pass will soon be replaced by those from the second.</para>
@@ -18,7 +18,7 @@ diff -Naur a/chapter05/binutils-pass1.xml b/chapter05/binutils-pass1.xml
      <para>Install the package:</para>
 diff -Naur a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
 --- a/chapter05/gcc-pass1.xml	2019-08-22 22:04:20.401783965 +0000
-+++ b/chapter05/gcc-pass1.xml	2019-08-22 22:07:34.725978175 +0000
++++ b/chapter05/gcc-pass1.xml	2019-08-22 22:41:59.065703422 +0000
 @@ -68,7 +68,8 @@
      class="directory">/usr/include</filename> from GCC's include search path.
      Issue:</para>
@@ -56,13 +56,13 @@ diff -Naur a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
 +
 +<screen><userinput remap="pre">case $(uname -m) in
 +  armv6l)
-+    patch -Np1 -i ../gcc-8.2.0-armv6.patch
++    patch -Np1 -i ../gcc-9.2.0-armv6.patch
 + ;;
 +  armv7l)
-+    patch -Np1 -i ../gcc-8.2.0-armv7.patch
++    patch -Np1 -i ../gcc-9.2.0-armv7.patch
 + ;;
 +  armv8l)
-+    patch -Np1 -i ../gcc-8.2.0-armv8.patch
++    patch -Np1 -i ../gcc-9.2.0-armv8.patch
 + ;;
  esac</userinput></screen>
  
@@ -85,7 +85,7 @@ diff -Naur a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
        <title>The meaning of the configure options:</title>
 diff -Naur a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
 --- a/chapter05/gcc-pass2.xml	2019-08-22 22:04:20.405785148 +0000
-+++ b/chapter05/gcc-pass2.xml	2019-08-22 22:07:34.725978175 +0000
++++ b/chapter05/gcc-pass2.xml	2019-08-22 22:42:06.926068488 +0000
 @@ -70,7 +70,8 @@
      use the one installed in <filename
      class="directory">/tools</filename>.</para>
@@ -123,13 +123,13 @@ diff -Naur a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
 +
 +<screen><userinput remap="pre">case $(uname -m) in
 +  armv6l)
-+    patch -Np1 -i ../gcc-8.2.0-armv6.patch
++    patch -Np1 -i ../gcc-9.2.0-armv6.patch
 + ;;
 +  armv7l)
-+    patch -Np1 -i ../gcc-8.2.0-armv7.patch
++    patch -Np1 -i ../gcc-9.2.0-armv7.patch
 + ;;
 +  armv8l)
-+    patch -Np1 -i ../gcc-8.2.0-armv8.patch
++    patch -Np1 -i ../gcc-9.2.0-armv8.patch
 + ;;
  esac</userinput></screen>
  
@@ -144,7 +144,7 @@ diff -Naur a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
      <variablelist>
 diff -Naur a/chapter05/glibc.xml b/chapter05/glibc.xml
 --- a/chapter05/glibc.xml	2019-08-22 22:04:20.405785148 +0000
-+++ b/chapter05/glibc.xml	2019-08-22 22:07:34.725978175 +0000
++++ b/chapter05/glibc.xml	2019-08-22 22:41:28.504267119 +0000
 @@ -56,6 +56,7 @@
        --host=$LFS_TGT                    \
        --build=$(../scripts/config.guess) \
@@ -170,7 +170,7 @@ diff -Naur a/chapter05/glibc.xml b/chapter05/glibc.xml
    <note><para>Building Binutils in the section after next will serve as an
 diff -Naur a/chapter06/adjusting.xml b/chapter06/adjusting.xml
 --- a/chapter06/adjusting.xml	2019-08-22 22:04:19.869625448 +0000
-+++ b/chapter06/adjusting.xml	2019-08-22 22:07:34.725978175 +0000
++++ b/chapter06/adjusting.xml	2019-08-22 22:41:28.504267119 +0000
 @@ -16,13 +16,13 @@
  
    <para>First, backup the <filename class="directory">/tools</filename> linker,
@@ -191,7 +191,7 @@ diff -Naur a/chapter06/adjusting.xml b/chapter06/adjusting.xml
    dynamic linker. Simply deleting all instances of <quote>/tools</quote> should
 diff -Naur a/chapter06/chapter06.xml b/chapter06/chapter06.xml
 --- a/chapter06/chapter06.xml	2019-08-22 22:04:19.869625448 +0000
-+++ b/chapter06/chapter06.xml	2019-08-22 22:07:34.729978345 +0000
++++ b/chapter06/chapter06.xml	2019-08-22 22:41:28.508267308 +0000
 @@ -70,7 +70,6 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
@@ -202,7 +202,7 @@ diff -Naur a/chapter06/chapter06.xml b/chapter06/chapter06.xml
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
 diff -Naur a/chapter06/coreutils.xml b/chapter06/coreutils.xml
 --- a/chapter06/coreutils.xml	2019-08-22 22:04:19.865624232 +0000
-+++ b/chapter06/coreutils.xml	2019-08-22 22:07:34.729978345 +0000
++++ b/chapter06/coreutils.xml	2019-08-22 22:41:28.508267308 +0000
 @@ -45,7 +45,7 @@
      boundaries correctly even in multibyte locales. The following patch fixes
      this non-compliance and other internationalization-related bugs.</para>
@@ -214,7 +214,7 @@ diff -Naur a/chapter06/coreutils.xml b/chapter06/coreutils.xml
        <para>In the past, many bugs were found in this patch. When reporting new
 diff -Naur a/chapter06/creatingdirs.xml b/chapter06/creatingdirs.xml
 --- a/chapter06/creatingdirs.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/creatingdirs.xml	2019-08-22 22:07:34.733978516 +0000
++++ b/chapter06/creatingdirs.xml	2019-08-22 22:41:28.508267308 +0000
 @@ -26,6 +26,9 @@
  
  case $(uname -m) in
@@ -227,7 +227,7 @@ diff -Naur a/chapter06/creatingdirs.xml b/chapter06/creatingdirs.xml
  mkdir -v /var/{log,mail,spool}
 diff -Naur a/chapter06/gcc.xml b/chapter06/gcc.xml
 --- a/chapter06/gcc.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/gcc.xml	2019-08-22 22:08:41.680816746 +0000
++++ b/chapter06/gcc.xml	2019-08-22 22:42:16.930530637 +0000
 @@ -49,6 +49,28 @@
      sed -e '/m64=/s/lib64/lib/' \
          -i.orig gcc/config/i386/t-linux64
@@ -246,13 +246,13 @@ diff -Naur a/chapter06/gcc.xml b/chapter06/gcc.xml
 +
 +<screen><userinput remap="pre">case $(uname -m) in
 +  armv6l)
-+    patch -Np1 -i ../gcc-8.2.0-armv6.patch
++    patch -Np1 -i ../gcc-9.2.0-armv6.patch
 + ;;
 +  armv7l)
-+    patch -Np1 -i ../gcc-8.2.0-armv7.patch
++    patch -Np1 -i ../gcc-9.2.0-armv7.patch
 + ;;
 +  armv8l)
-+    patch -Np1 -i ../gcc-8.2.0-armv8.patch
++    patch -Np1 -i ../gcc-9.2.0-armv8.patch
 + ;;
  esac</userinput></screen>
  
@@ -267,7 +267,7 @@ diff -Naur a/chapter06/gcc.xml b/chapter06/gcc.xml
      <para>Note that for other languages, there are some prerequisites that
 diff -Naur a/chapter06/glibc.xml b/chapter06/glibc.xml
 --- a/chapter06/glibc.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/glibc.xml	2019-08-22 22:11:19.450842532 +0000
++++ b/chapter06/glibc.xml	2019-08-22 22:41:28.512267498 +0000
 @@ -71,6 +71,12 @@
      required for the dynamic loader to function correctly:</para>
  
@@ -308,7 +308,7 @@ diff -Naur a/chapter06/glibc.xml b/chapter06/glibc.xml
  
 diff -Naur a/chapter06/openssl.xml b/chapter06/openssl.xml
 --- a/chapter06/openssl.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/openssl.xml	2019-08-22 22:07:34.745979029 +0000
++++ b/chapter06/openssl.xml	2019-08-22 22:41:28.512267498 +0000
 @@ -50,11 +50,37 @@
  
      <para>Prepare OpenSSL for compilation:</para>
@@ -351,7 +351,7 @@ diff -Naur a/chapter06/openssl.xml b/chapter06/openssl.xml
  
 diff -Naur a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
 --- a/chapter06/revisedchroot.xml	2019-08-22 22:04:19.869625448 +0000
-+++ b/chapter06/revisedchroot.xml	2019-08-22 22:07:34.745979029 +0000
++++ b/chapter06/revisedchroot.xml	2019-08-22 22:41:28.512267498 +0000
 @@ -50,12 +50,12 @@
    libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
    remove them now:</para>
@@ -373,7 +373,7 @@ diff -Naur a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
    directories with a file name extention of .la. These are "libtool archive"
 diff -Naur a/chapter07/usage.xml b/chapter07/usage.xml
 --- a/chapter07/usage.xml	2019-08-22 22:04:20.409786331 +0000
-+++ b/chapter07/usage.xml	2019-08-22 22:07:34.745979029 +0000
++++ b/chapter07/usage.xml	2019-08-22 22:41:28.516267688 +0000
 @@ -85,6 +85,9 @@
  4:2345:respawn:/sbin/agetty tty4 9600
  5:2345:respawn:/sbin/agetty tty5 9600
@@ -386,7 +386,7 @@ diff -Naur a/chapter07/usage.xml b/chapter07/usage.xml
  EOF</userinput></screen>
 diff -Naur a/chapter08/kernel.xml b/chapter08/kernel.xml
 --- a/chapter08/kernel.xml	2019-08-22 22:04:20.409786331 +0000
-+++ b/chapter08/kernel.xml	2019-08-22 22:07:34.745979029 +0000
++++ b/chapter08/kernel.xml	2019-08-22 22:41:28.516267688 +0000
 @@ -214,7 +214,7 @@
  
      <para>Install the modules, if the kernel configuration uses them:</para>
@@ -413,7 +413,7 @@ diff -Naur a/chapter08/kernel.xml b/chapter08/kernel.xml
  
 diff -Naur a/prologue/architecture.xml b/prologue/architecture.xml
 --- a/prologue/architecture.xml	2019-08-22 22:04:20.397782782 +0000
-+++ b/prologue/architecture.xml	2019-08-22 22:07:34.749979200 +0000
++++ b/prologue/architecture.xml	2019-08-22 22:41:28.516267688 +0000
 @@ -20,6 +20,10 @@
  distribution can be installed and used as a host system on a 64-bit AMD/Intel
  computer.</para>

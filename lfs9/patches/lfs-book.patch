@@ -1,6 +1,6 @@
-diff -Naur a/chapter05/binutils-pass1.xml b/chapter05/binutils-pass1.xml
---- a/chapter05/binutils-pass1.xml	2019-08-22 22:04:20.401783965 +0000
-+++ b/chapter05/binutils-pass1.xml	2019-08-22 22:41:28.504267119 +0000
+diff -Naur lfs-9.0/chapter05/binutils-pass1.xml lfs-9.0arm/chapter05/binutils-pass1.xml
+--- lfs-9.0/chapter05/binutils-pass1.xml	2019-09-09 15:31:03.361857545 +0000
++++ lfs-9.0arm/chapter05/binutils-pass1.xml	2019-09-09 15:31:47.046769812 +0000
 @@ -146,11 +146,13 @@
      tests at this point are minimal since the programs from this
      first pass will soon be replaced by those from the second.</para>
@@ -16,9 +16,9 @@ diff -Naur a/chapter05/binutils-pass1.xml b/chapter05/binutils-pass1.xml
  esac</userinput></screen>
  
      <para>Install the package:</para>
-diff -Naur a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
---- a/chapter05/gcc-pass1.xml	2019-08-22 22:04:20.401783965 +0000
-+++ b/chapter05/gcc-pass1.xml	2019-08-22 22:41:59.065703422 +0000
+diff -Naur lfs-9.0/chapter05/gcc-pass1.xml lfs-9.0arm/chapter05/gcc-pass1.xml
+--- lfs-9.0/chapter05/gcc-pass1.xml	2019-09-09 15:31:03.361857545 +0000
++++ lfs-9.0arm/chapter05/gcc-pass1.xml	2019-09-09 15:31:47.046769812 +0000
 @@ -68,7 +68,8 @@
      class="directory">/usr/include</filename> from GCC's include search path.
      Issue:</para>
@@ -83,9 +83,9 @@ diff -Naur a/chapter05/gcc-pass1.xml b/chapter05/gcc-pass1.xml
      --enable-languages=c,c++</userinput></screen>
      <variablelist>
        <title>The meaning of the configure options:</title>
-diff -Naur a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
---- a/chapter05/gcc-pass2.xml	2019-08-22 22:04:20.405785148 +0000
-+++ b/chapter05/gcc-pass2.xml	2019-08-22 22:42:06.926068488 +0000
+diff -Naur lfs-9.0/chapter05/gcc-pass2.xml lfs-9.0arm/chapter05/gcc-pass2.xml
+--- lfs-9.0/chapter05/gcc-pass2.xml	2019-09-09 15:31:03.361857545 +0000
++++ lfs-9.0arm/chapter05/gcc-pass2.xml	2019-09-09 15:31:47.050769698 +0000
 @@ -70,7 +70,8 @@
      use the one installed in <filename
      class="directory">/tools</filename>.</para>
@@ -142,9 +142,9 @@ diff -Naur a/chapter05/gcc-pass2.xml b/chapter05/gcc-pass2.xml
      --disable-libgomp</userinput></screen>
  
      <variablelist>
-diff -Naur a/chapter05/glibc.xml b/chapter05/glibc.xml
---- a/chapter05/glibc.xml	2019-08-22 22:04:20.405785148 +0000
-+++ b/chapter05/glibc.xml	2019-08-22 22:41:28.504267119 +0000
+diff -Naur lfs-9.0/chapter05/glibc.xml lfs-9.0arm/chapter05/glibc.xml
+--- lfs-9.0/chapter05/glibc.xml	2019-09-09 15:31:03.361857545 +0000
++++ lfs-9.0arm/chapter05/glibc.xml	2019-09-09 15:31:47.050769698 +0000
 @@ -56,6 +56,7 @@
        --host=$LFS_TGT                    \
        --build=$(../scripts/config.guess) \
@@ -168,9 +168,9 @@ diff -Naur a/chapter05/glibc.xml b/chapter05/glibc.xml
    </caution>
  
    <note><para>Building Binutils in the section after next will serve as an
-diff -Naur a/chapter06/adjusting.xml b/chapter06/adjusting.xml
---- a/chapter06/adjusting.xml	2019-08-22 22:04:19.869625448 +0000
-+++ b/chapter06/adjusting.xml	2019-08-22 22:41:28.504267119 +0000
+diff -Naur lfs-9.0/chapter06/adjusting.xml lfs-9.0arm/chapter06/adjusting.xml
+--- lfs-9.0/chapter06/adjusting.xml	2019-09-09 15:31:03.337855729 +0000
++++ lfs-9.0arm/chapter06/adjusting.xml	2019-09-09 15:31:47.050769698 +0000
 @@ -16,13 +16,13 @@
  
    <para>First, backup the <filename class="directory">/tools</filename> linker,
@@ -189,9 +189,9 @@ diff -Naur a/chapter06/adjusting.xml b/chapter06/adjusting.xml
  
    <para>Next, amend the GCC specs file so that it points to the new
    dynamic linker. Simply deleting all instances of <quote>/tools</quote> should
-diff -Naur a/chapter06/chapter06.xml b/chapter06/chapter06.xml
---- a/chapter06/chapter06.xml	2019-08-22 22:04:19.869625448 +0000
-+++ b/chapter06/chapter06.xml	2019-08-22 22:41:28.508267308 +0000
+diff -Naur lfs-9.0/chapter06/chapter06.xml lfs-9.0arm/chapter06/chapter06.xml
+--- lfs-9.0/chapter06/chapter06.xml	2019-09-09 15:31:03.333855426 +0000
++++ lfs-9.0arm/chapter06/chapter06.xml	2019-09-09 15:31:47.050769698 +0000
 @@ -70,7 +70,6 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
@@ -200,9 +200,9 @@ diff -Naur a/chapter06/chapter06.xml b/chapter06/chapter06.xml
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="less.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
-diff -Naur a/chapter06/coreutils.xml b/chapter06/coreutils.xml
---- a/chapter06/coreutils.xml	2019-08-22 22:04:19.865624232 +0000
-+++ b/chapter06/coreutils.xml	2019-08-22 22:41:28.508267308 +0000
+diff -Naur lfs-9.0/chapter06/coreutils.xml lfs-9.0arm/chapter06/coreutils.xml
+--- lfs-9.0/chapter06/coreutils.xml	2019-09-09 15:31:03.333855426 +0000
++++ lfs-9.0arm/chapter06/coreutils.xml	2019-09-09 15:31:47.050769698 +0000
 @@ -45,7 +45,7 @@
      boundaries correctly even in multibyte locales. The following patch fixes
      this non-compliance and other internationalization-related bugs.</para>
@@ -212,9 +212,9 @@ diff -Naur a/chapter06/coreutils.xml b/chapter06/coreutils.xml
  
      <note>
        <para>In the past, many bugs were found in this patch. When reporting new
-diff -Naur a/chapter06/creatingdirs.xml b/chapter06/creatingdirs.xml
---- a/chapter06/creatingdirs.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/creatingdirs.xml	2019-08-22 22:41:28.508267308 +0000
+diff -Naur lfs-9.0/chapter06/creatingdirs.xml lfs-9.0arm/chapter06/creatingdirs.xml
+--- lfs-9.0/chapter06/creatingdirs.xml	2019-09-09 15:31:03.329855124 +0000
++++ lfs-9.0arm/chapter06/creatingdirs.xml	2019-09-09 15:31:47.054769583 +0000
 @@ -26,6 +26,9 @@
  
  case $(uname -m) in
@@ -225,9 +225,9 @@ diff -Naur a/chapter06/creatingdirs.xml b/chapter06/creatingdirs.xml
  esac
  
  mkdir -v /var/{log,mail,spool}
-diff -Naur a/chapter06/gcc.xml b/chapter06/gcc.xml
---- a/chapter06/gcc.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/gcc.xml	2019-08-22 22:42:16.930530637 +0000
+diff -Naur lfs-9.0/chapter06/gcc.xml lfs-9.0arm/chapter06/gcc.xml
+--- lfs-9.0/chapter06/gcc.xml	2019-09-09 15:31:03.329855124 +0000
++++ lfs-9.0arm/chapter06/gcc.xml	2019-09-10 10:12:05.670182786 +0000
 @@ -49,6 +49,28 @@
      sed -e '/m64=/s/lib64/lib/' \
          -i.orig gcc/config/i386/t-linux64
@@ -265,9 +265,18 @@ diff -Naur a/chapter06/gcc.xml b/chapter06/gcc.xml
               --with-system-zlib</userinput></screen>
  
      <para>Note that for other languages, there are some prerequisites that
-diff -Naur a/chapter06/glibc.xml b/chapter06/glibc.xml
---- a/chapter06/glibc.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/glibc.xml	2019-08-22 22:41:28.512267498 +0000
+@@ -163,7 +186,7 @@
+     <systemitem class="username">root</systemitem> user and group:</para>
+ 
+ <screen><userinput remap="install">chown -v -R root:root \
+-    /usr/lib/gcc/*linux-gnu/&gcc-version;/include{,-fixed}</userinput></screen>
++    /usr/lib/gcc/*linux-gnu*/&gcc-version;/include{,-fixed}</userinput></screen>
+ 
+     <para>Create a symlink required by the <ulink
+     url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
+diff -Naur lfs-9.0/chapter06/glibc.xml lfs-9.0arm/chapter06/glibc.xml
+--- lfs-9.0/chapter06/glibc.xml	2019-09-09 15:31:03.329855124 +0000
++++ lfs-9.0arm/chapter06/glibc.xml	2019-09-09 15:31:47.054769583 +0000
 @@ -71,6 +71,12 @@
      required for the dynamic loader to function correctly:</para>
  
@@ -306,9 +315,9 @@ diff -Naur a/chapter06/glibc.xml b/chapter06/glibc.xml
      <para>Install the configuration file and runtime directory for
      <command>nscd</command>:</para>
  
-diff -Naur a/chapter06/openssl.xml b/chapter06/openssl.xml
---- a/chapter06/openssl.xml	2019-08-22 22:04:19.761592626 +0000
-+++ b/chapter06/openssl.xml	2019-08-22 22:41:28.512267498 +0000
+diff -Naur lfs-9.0/chapter06/openssl.xml lfs-9.0arm/chapter06/openssl.xml
+--- lfs-9.0/chapter06/openssl.xml	2019-09-09 15:31:03.329855124 +0000
++++ lfs-9.0arm/chapter06/openssl.xml	2019-09-09 15:31:47.054769583 +0000
 @@ -50,11 +50,37 @@
  
      <para>Prepare OpenSSL for compilation:</para>
@@ -349,9 +358,9 @@ diff -Naur a/chapter06/openssl.xml b/chapter06/openssl.xml
  
      <para>Compile the package:</para>
  
-diff -Naur a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
---- a/chapter06/revisedchroot.xml	2019-08-22 22:04:19.869625448 +0000
-+++ b/chapter06/revisedchroot.xml	2019-08-22 22:41:28.512267498 +0000
+diff -Naur lfs-9.0/chapter06/revisedchroot.xml lfs-9.0arm/chapter06/revisedchroot.xml
+--- lfs-9.0/chapter06/revisedchroot.xml	2019-09-09 15:31:03.337855729 +0000
++++ lfs-9.0arm/chapter06/revisedchroot.xml	2019-09-09 15:31:47.058769469 +0000
 @@ -50,12 +50,12 @@
    libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
    remove them now:</para>
@@ -371,9 +380,9 @@ diff -Naur a/chapter06/revisedchroot.xml b/chapter06/revisedchroot.xml
  
    <para>There are also several files installed in the /usr/lib and /usr/libexec
    directories with a file name extention of .la. These are "libtool archive"
-diff -Naur a/chapter07/usage.xml b/chapter07/usage.xml
---- a/chapter07/usage.xml	2019-08-22 22:04:20.409786331 +0000
-+++ b/chapter07/usage.xml	2019-08-22 22:41:28.516267688 +0000
+diff -Naur lfs-9.0/chapter07/usage.xml lfs-9.0arm/chapter07/usage.xml
+--- lfs-9.0/chapter07/usage.xml	2019-09-09 15:31:03.365857847 +0000
++++ lfs-9.0arm/chapter07/usage.xml	2019-09-09 15:31:47.058769469 +0000
 @@ -85,6 +85,9 @@
  4:2345:respawn:/sbin/agetty tty4 9600
  5:2345:respawn:/sbin/agetty tty5 9600
@@ -384,9 +393,9 @@ diff -Naur a/chapter07/usage.xml b/chapter07/usage.xml
  
  # End /etc/inittab</literal>
  EOF</userinput></screen>
-diff -Naur a/chapter08/kernel.xml b/chapter08/kernel.xml
---- a/chapter08/kernel.xml	2019-08-22 22:04:20.409786331 +0000
-+++ b/chapter08/kernel.xml	2019-08-22 22:41:28.516267688 +0000
+diff -Naur lfs-9.0/chapter08/kernel.xml lfs-9.0arm/chapter08/kernel.xml
+--- lfs-9.0/chapter08/kernel.xml	2019-09-09 15:31:03.365857847 +0000
++++ lfs-9.0arm/chapter08/kernel.xml	2019-09-09 15:31:47.058769469 +0000
 @@ -214,7 +214,7 @@
  
      <para>Install the modules, if the kernel configuration uses them:</para>
@@ -411,9 +420,9 @@ diff -Naur a/chapter08/kernel.xml b/chapter08/kernel.xml
  
  <screen revision="systemd"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
  
-diff -Naur a/prologue/architecture.xml b/prologue/architecture.xml
---- a/prologue/architecture.xml	2019-08-22 22:04:20.397782782 +0000
-+++ b/prologue/architecture.xml	2019-08-22 22:41:28.516267688 +0000
+diff -Naur lfs-9.0/prologue/architecture.xml lfs-9.0arm/prologue/architecture.xml
+--- lfs-9.0/prologue/architecture.xml	2019-09-09 15:31:03.349856637 +0000
++++ lfs-9.0arm/prologue/architecture.xml	2019-09-09 15:31:47.066769239 +0000
 @@ -20,6 +20,10 @@
  distribution can be installed and used as a host system on a 64-bit AMD/Intel
  computer.</para>

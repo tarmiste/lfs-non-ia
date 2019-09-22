@@ -38,10 +38,10 @@ only modified those files needed to build on the IA CPUs.
 5) In Chapter 6, "--enable-stack-protector=strong" is removed from 
 the glibc configure step.    On PowerPC32 (only) this option may result
 in segmentation violations after installation of glibc.    This failure
-doesn't seem to happen when building for G5 or ARM boards.   The
-book patch removes it for all architectures.    Add it back in if 
-you need it enabled but you will probably run into problems that
-you will have to fix.
+doesn't seem to happen when building for G5 or ARM boards and it may
+have been fixed in GCC-8 and later releases.   The book patch removes 
+this setting for all architectures.    Add it back in if you need it 
+enabled but you may run into problems that you will have to fix.
 
 6) The book patch disables the removal of various static libraries.
 This change is not specifically needed for ARM or PPC but is done simply for 

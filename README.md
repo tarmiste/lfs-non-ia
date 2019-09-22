@@ -183,6 +183,9 @@ In the LFS8.3 the chap6 coreutils patch causes problems for PPC32 builds.
    Most BLFS packages seem to build ok as is on non-IA machines.  But
 then again, only a small set of them have been built by this author.
 
+   The blfs tool itself seems to function properly on PPC and ARM
+systems without any changes needed.
+
 6) Skip building Grub on non-IA boards.
 
    grub is specific to the IA boards and is not needed on nonIA

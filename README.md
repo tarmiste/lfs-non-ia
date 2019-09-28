@@ -48,12 +48,15 @@ version of the LFS book.  Periodically they have been tried with the
 systemd version of the book and also seem to work for systemd builds 
 but if you want to stay on the road most traveled the sysvinit version is it.
 
+Materials in this repository won't work with the multi-lib variant
+of the LFS.   Only supports pure 64 or pure 32 bit builds.
+
 If you are using this repository to build LFS and run into difficulties
 building LFS on non x86/64 machines, please DO NOT ask questions on the
 LFS website.   By intention, the LFS book specifically targets only
 x86/64 so any questions or problems building on other architectures are not
 appropriate for the main LFS site.  If you run into problems, file
-an issue in this repository or work through the issue yourself.
+an issue in this repository or work through the issue yourself.  
 
 If you are specifically interested in LFS for RaspberryPI, you may
 find pilfs (http://intestinate.com/pilfs/ ) to be useful.   Pilfs provides
@@ -70,25 +73,28 @@ and other information which may be of general use in building LFS
 and subdirectories which coorespond to a specific LFS releases and
 contain information specific to that particular release.  
 
-Currently there are five subdirectories: lfs83, lfs82, lfs81 and lfs79,
-cooresponding to LFS releases 8.4 to 7.9.
-All materials herein should be considered as WIP but some have been used 
-to build an LFS system for ppc64, ppc32, ARM32 and ARM64 (aarch64).
+Currently there are six subdirectories: lfs90, lfs84 to lfs81 and lfs79,
+cooresponding to LFS releases 9.0 to 7.9.
+All materials herein should be considered as WIP but have been used 
+to build an LFS system for some of ppc64, ppc32, ARM32 and ARM64 (aarch64).
 
 Due to lack of machines to test on, building LFS on MIPs and other
 architectures beside ppc and arm is not part of this repository.  
 Building on some ppc variants such as E500 machines is also an unknown.
 
 The contents of each lfs subdirectory varies a bit but will contain at least 
-a LFS book patch in the 'patches' subdirectory.  It also may contain 
-notes, jhalfs patches, source code bits and pieces, build logs, kernel
+a LFS book patch (lfs-book.patch) in the 'patches' subdirectory.  The LFS book
+patch is the main thing.   It modifies the LFS book such that the instructions
+in it will work for additional architectures besides Intel.   Each directory
+also may contain notes, jhalfs patches, source code bits and pieces, build logs, kernel
 config files and other information specific to building that release 
 on various architectures.  
 
 This repository contents would typically be used (with jhalfs
 for the build tool) as follows:
 
-1) Obtain a local copy of the LFS book (in XML format) using subversion.
+1) Obtain a local copy of the LFS book (in XML format) using subversion or
+   otherwise.
 2) Find the LFS book patch in the patches subdirectory and apply it
    to the local copy of the LFS book.
 2a) If doing a "cut and paste" build, render the patched book into human 
@@ -110,7 +116,7 @@ for the build tool) as follows:
 Note that the book patch concentrates on changes to the build instructions
 and not so much on the descriptive text.  If you are cut and pasting from 
 the rendered book, be aware that the descriptive text may sometimes not 
-exactly match the build instructions
+exactly match the modified build instructions
 
 
 ### General notes about building LFS on nonIA boards:

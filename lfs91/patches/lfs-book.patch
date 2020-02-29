@@ -318,6 +318,23 @@ diff -Naur lfs-9.1/chapter06/gmp.xml lfs-9.1ppc/chapter06/gmp.xml
      <para>Prepare GMP for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr    \
+diff -Naur lfs-9.1/chapter06/libffi.xml lfs-9.1ppc/chapter06/libffi.xml
+--- lfs-9.1/chapter06/libffi.xml	2020-02-27 22:17:30.587683623 +0000
++++ lfs-9.1ppc/chapter06/libffi.xml	2020-02-29 16:59:28.355278058 +0000
+@@ -61,6 +61,13 @@
+     -e 's/^Cflags: -I${includedir}/Cflags:/' \
+     -i libffi.pc.in</userinput></screen>
+ -->
++
++    <para>Fix powerpc compile error:</para>
++
++<screen><userinput remap="pre">
++sed -e 's@typedef __int128 float128;@typedef char float128[16] __attribute__((aligned(16)));@' -i src/powerpc/ffi_powerpc.h
++</userinput></screen>
++
+     <para>Prepare libffi for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr --disable-static --with-gcc-arch=native</userinput></screen>
 diff -Naur lfs-9.1/chapter06/openssl.xml lfs-9.1ppc/chapter06/openssl.xml
 --- lfs-9.1/chapter06/openssl.xml	2020-02-27 22:17:30.587683623 +0000
 +++ lfs-9.1ppc/chapter06/openssl.xml	2020-02-27 22:19:03.413918561 +0000

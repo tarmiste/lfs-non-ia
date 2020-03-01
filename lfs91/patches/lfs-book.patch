@@ -1,6 +1,6 @@
-diff -Naur lfs-9.1/chapter05/binutils-pass1.xml lfs-9.1ppc/chapter05/binutils-pass1.xml
---- lfs-9.1/chapter05/binutils-pass1.xml	2020-02-27 22:17:30.583684712 +0000
-+++ lfs-9.1ppc/chapter05/binutils-pass1.xml	2020-02-27 22:19:03.373926343 +0000
+diff -Naur oldlfs/chapter05/binutils-pass1.xml newlfs/chapter05/binutils-pass1.xml
+--- oldlfs/chapter05/binutils-pass1.xml	2020-03-01 23:23:30.697508189 +0000
++++ newlfs/chapter05/binutils-pass1.xml	2020-03-01 23:24:36.927674637 +0000
 @@ -146,11 +146,13 @@
      tests at this point are minimal since the programs from this
      first pass will soon be replaced by those from the second.</para>
@@ -16,9 +16,9 @@ diff -Naur lfs-9.1/chapter05/binutils-pass1.xml lfs-9.1ppc/chapter05/binutils-pa
  esac</userinput></screen>
  
      <para>Install the package:</para>
-diff -Naur lfs-9.1/chapter05/gcc-pass1.xml lfs-9.1ppc/chapter05/gcc-pass1.xml
---- lfs-9.1/chapter05/gcc-pass1.xml	2020-02-27 22:17:30.579685801 +0000
-+++ lfs-9.1ppc/chapter05/gcc-pass1.xml	2020-02-27 22:19:03.377925565 +0000
+diff -Naur oldlfs/chapter05/gcc-pass1.xml newlfs/chapter05/gcc-pass1.xml
+--- oldlfs/chapter05/gcc-pass1.xml	2020-03-01 23:23:30.693496345 +0000
++++ newlfs/chapter05/gcc-pass1.xml	2020-03-01 23:24:38.704619268 +0000
 @@ -68,7 +68,8 @@
      class="directory">/usr/include</filename> from GCC's include search path.
      Issue:</para>
@@ -83,9 +83,9 @@ diff -Naur lfs-9.1/chapter05/gcc-pass1.xml lfs-9.1ppc/chapter05/gcc-pass1.xml
      --enable-languages=c,c++</userinput></screen>
      <variablelist>
        <title>The meaning of the configure options:</title>
-diff -Naur lfs-9.1/chapter05/gcc-pass2.xml lfs-9.1ppc/chapter05/gcc-pass2.xml
---- lfs-9.1/chapter05/gcc-pass2.xml	2020-02-27 22:17:30.579685801 +0000
-+++ lfs-9.1ppc/chapter05/gcc-pass2.xml	2020-02-27 22:19:03.381924786 +0000
+diff -Naur oldlfs/chapter05/gcc-pass2.xml newlfs/chapter05/gcc-pass2.xml
+--- oldlfs/chapter05/gcc-pass2.xml	2020-03-01 23:23:30.693496345 +0000
++++ newlfs/chapter05/gcc-pass2.xml	2020-03-01 23:24:38.704619268 +0000
 @@ -70,7 +70,8 @@
      use the one installed in <filename
      class="directory">/tools</filename>.</para>
@@ -142,9 +142,9 @@ diff -Naur lfs-9.1/chapter05/gcc-pass2.xml lfs-9.1ppc/chapter05/gcc-pass2.xml
      --disable-libgomp</userinput></screen>
  
      <variablelist>
-diff -Naur lfs-9.1/chapter05/glibc.xml lfs-9.1ppc/chapter05/glibc.xml
---- lfs-9.1/chapter05/glibc.xml	2020-02-27 22:17:30.583684712 +0000
-+++ lfs-9.1ppc/chapter05/glibc.xml	2020-02-27 22:19:03.385924008 +0000
+diff -Naur oldlfs/chapter05/glibc.xml newlfs/chapter05/glibc.xml
+--- oldlfs/chapter05/glibc.xml	2020-03-01 23:23:30.697508189 +0000
++++ newlfs/chapter05/glibc.xml	2020-03-01 23:24:38.708621390 +0000
 @@ -56,6 +56,7 @@
        --host=$LFS_TGT                    \
        --build=$(../scripts/config.guess) \
@@ -168,9 +168,9 @@ diff -Naur lfs-9.1/chapter05/glibc.xml lfs-9.1ppc/chapter05/glibc.xml
    </caution>
  
    <note><para>Building Binutils in the section after next will serve as an
-diff -Naur lfs-9.1/chapter06/adjusting.xml lfs-9.1ppc/chapter06/adjusting.xml
---- lfs-9.1/chapter06/adjusting.xml	2020-02-27 22:17:30.591682534 +0000
-+++ lfs-9.1ppc/chapter06/adjusting.xml	2020-02-27 22:19:03.389923230 +0000
+diff -Naur oldlfs/chapter06/adjusting.xml newlfs/chapter06/adjusting.xml
+--- oldlfs/chapter06/adjusting.xml	2020-03-01 23:23:30.709543721 +0000
++++ newlfs/chapter06/adjusting.xml	2020-03-01 23:24:38.712623512 +0000
 @@ -16,13 +16,13 @@
  
    <para>First, backup the <filename class="directory">/tools</filename> linker,
@@ -189,9 +189,9 @@ diff -Naur lfs-9.1/chapter06/adjusting.xml lfs-9.1ppc/chapter06/adjusting.xml
  
    <para>Next, amend the GCC specs file so that it points to the new
    dynamic linker. Simply deleting all instances of <quote>/tools</quote> should
-diff -Naur lfs-9.1/chapter06/chapter06.xml lfs-9.1ppc/chapter06/chapter06.xml
---- lfs-9.1/chapter06/chapter06.xml	2020-02-27 22:17:30.587683623 +0000
-+++ lfs-9.1ppc/chapter06/chapter06.xml	2020-02-27 22:19:03.389923230 +0000
+diff -Naur oldlfs/chapter06/chapter06.xml newlfs/chapter06/chapter06.xml
+--- oldlfs/chapter06/chapter06.xml	2020-03-01 23:23:30.701520033 +0000
++++ newlfs/chapter06/chapter06.xml	2020-03-01 23:24:38.752644735 +0000
 @@ -70,7 +70,6 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
@@ -200,9 +200,9 @@ diff -Naur lfs-9.1/chapter06/chapter06.xml lfs-9.1ppc/chapter06/chapter06.xml
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="less.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="zstd.xml"/>
-diff -Naur lfs-9.1/chapter06/coreutils.xml lfs-9.1ppc/chapter06/coreutils.xml
---- lfs-9.1/chapter06/coreutils.xml	2020-02-27 22:17:30.587683623 +0000
-+++ lfs-9.1ppc/chapter06/coreutils.xml	2020-02-27 22:19:03.393922452 +0000
+diff -Naur oldlfs/chapter06/coreutils.xml newlfs/chapter06/coreutils.xml
+--- oldlfs/chapter06/coreutils.xml	2020-03-01 23:23:30.705531877 +0000
++++ newlfs/chapter06/coreutils.xml	2020-03-01 23:24:38.752644735 +0000
 @@ -45,7 +45,7 @@
      boundaries correctly even in multibyte locales. The following patch fixes
      this non-compliance and other internationalization-related bugs.</para>
@@ -212,9 +212,9 @@ diff -Naur lfs-9.1/chapter06/coreutils.xml lfs-9.1ppc/chapter06/coreutils.xml
  
      <note>
        <para>In the past, many bugs were found in this patch. When reporting new
-diff -Naur lfs-9.1/chapter06/creatingdirs.xml lfs-9.1ppc/chapter06/creatingdirs.xml
---- lfs-9.1/chapter06/creatingdirs.xml	2020-02-27 22:17:30.587683623 +0000
-+++ lfs-9.1ppc/chapter06/creatingdirs.xml	2020-02-27 22:19:03.397921674 +0000
+diff -Naur oldlfs/chapter06/creatingdirs.xml newlfs/chapter06/creatingdirs.xml
+--- oldlfs/chapter06/creatingdirs.xml	2020-03-01 23:23:30.705531877 +0000
++++ newlfs/chapter06/creatingdirs.xml	2020-03-01 23:24:38.756646857 +0000
 @@ -26,6 +26,9 @@
  
  case $(uname -m) in
@@ -225,9 +225,9 @@ diff -Naur lfs-9.1/chapter06/creatingdirs.xml lfs-9.1ppc/chapter06/creatingdirs.
  esac
  
  mkdir -v /var/{log,mail,spool}
-diff -Naur lfs-9.1/chapter06/gcc.xml lfs-9.1ppc/chapter06/gcc.xml
---- lfs-9.1/chapter06/gcc.xml	2020-02-27 22:17:30.587683623 +0000
-+++ lfs-9.1ppc/chapter06/gcc.xml	2020-02-27 22:19:03.401920895 +0000
+diff -Naur oldlfs/chapter06/gcc.xml newlfs/chapter06/gcc.xml
+--- oldlfs/chapter06/gcc.xml	2020-03-01 23:23:30.701520033 +0000
++++ newlfs/chapter06/gcc.xml	2020-03-01 23:24:38.760648979 +0000
 @@ -49,6 +49,28 @@
      sed -e '/m64=/s/lib64/lib/' \
          -i.orig gcc/config/i386/t-linux64
@@ -274,9 +274,9 @@ diff -Naur lfs-9.1/chapter06/gcc.xml lfs-9.1ppc/chapter06/gcc.xml
  
      <para>Create a symlink required by the <ulink
      url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
-diff -Naur lfs-9.1/chapter06/glibc.xml lfs-9.1ppc/chapter06/glibc.xml
---- lfs-9.1/chapter06/glibc.xml	2020-02-27 22:17:30.583684712 +0000
-+++ lfs-9.1ppc/chapter06/glibc.xml	2020-02-27 22:24:37.085581745 +0000
+diff -Naur oldlfs/chapter06/glibc.xml newlfs/chapter06/glibc.xml
+--- oldlfs/chapter06/glibc.xml	2020-03-01 23:23:30.701520033 +0000
++++ newlfs/chapter06/glibc.xml	2020-03-01 23:24:38.764651102 +0000
 @@ -72,6 +72,12 @@
      required for the dynamic loader to function correctly:</para>
  
@@ -305,9 +305,9 @@ diff -Naur lfs-9.1/chapter06/glibc.xml lfs-9.1ppc/chapter06/glibc.xml
      <para>Install the configuration file and runtime directory for
      <command>nscd</command>:</para>
  
-diff -Naur lfs-9.1/chapter06/gmp.xml lfs-9.1ppc/chapter06/gmp.xml
---- lfs-9.1/chapter06/gmp.xml	2020-02-27 22:17:30.591682534 +0000
-+++ lfs-9.1ppc/chapter06/gmp.xml	2020-02-27 22:34:25.994429758 +0000
+diff -Naur oldlfs/chapter06/gmp.xml newlfs/chapter06/gmp.xml
+--- oldlfs/chapter06/gmp.xml	2020-03-01 23:23:30.709543721 +0000
++++ newlfs/chapter06/gmp.xml	2020-03-01 23:24:38.764651102 +0000
 @@ -60,6 +60,9 @@
  cp -v configfsf.sub   config.sub</userinput></screen></para>
      </note>
@@ -318,9 +318,9 @@ diff -Naur lfs-9.1/chapter06/gmp.xml lfs-9.1ppc/chapter06/gmp.xml
      <para>Prepare GMP for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr    \
-diff -Naur lfs-9.1/chapter06/libffi.xml lfs-9.1ppc/chapter06/libffi.xml
---- lfs-9.1/chapter06/libffi.xml	2020-02-27 22:17:30.587683623 +0000
-+++ lfs-9.1ppc/chapter06/libffi.xml	2020-02-29 16:59:28.355278058 +0000
+diff -Naur oldlfs/chapter06/libffi.xml newlfs/chapter06/libffi.xml
+--- oldlfs/chapter06/libffi.xml	2020-03-01 23:23:30.701520033 +0000
++++ newlfs/chapter06/libffi.xml	2020-03-01 23:24:38.768653224 +0000
 @@ -61,6 +61,13 @@
      -e 's/^Cflags: -I${includedir}/Cflags:/' \
      -i libffi.pc.in</userinput></screen>
@@ -335,9 +335,9 @@ diff -Naur lfs-9.1/chapter06/libffi.xml lfs-9.1ppc/chapter06/libffi.xml
      <para>Prepare libffi for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr --disable-static --with-gcc-arch=native</userinput></screen>
-diff -Naur lfs-9.1/chapter06/openssl.xml lfs-9.1ppc/chapter06/openssl.xml
---- lfs-9.1/chapter06/openssl.xml	2020-02-27 22:17:30.587683623 +0000
-+++ lfs-9.1ppc/chapter06/openssl.xml	2020-02-27 22:19:03.413918561 +0000
+diff -Naur oldlfs/chapter06/openssl.xml newlfs/chapter06/openssl.xml
+--- oldlfs/chapter06/openssl.xml	2020-03-01 23:23:30.705531877 +0000
++++ newlfs/chapter06/openssl.xml	2020-03-01 23:24:38.772655346 +0000
 @@ -50,11 +50,37 @@
  -->
      <para>Prepare OpenSSL for compilation:</para>
@@ -378,9 +378,9 @@ diff -Naur lfs-9.1/chapter06/openssl.xml lfs-9.1ppc/chapter06/openssl.xml
  
      <para>Compile the package:</para>
  
-diff -Naur lfs-9.1/chapter06/revisedchroot.xml lfs-9.1ppc/chapter06/revisedchroot.xml
---- lfs-9.1/chapter06/revisedchroot.xml	2020-02-27 22:17:30.591682534 +0000
-+++ lfs-9.1ppc/chapter06/revisedchroot.xml	2020-02-27 22:19:03.413918561 +0000
+diff -Naur oldlfs/chapter06/revisedchroot.xml newlfs/chapter06/revisedchroot.xml
+--- oldlfs/chapter06/revisedchroot.xml	2020-03-01 23:23:30.709543721 +0000
++++ newlfs/chapter06/revisedchroot.xml	2020-03-01 23:24:38.772655346 +0000
 @@ -50,12 +50,12 @@
    libraries are from binutils, bzip2, e2fsprogs, flex, libtool, and zlib.  If desired,
    remove them now:</para>
@@ -400,9 +400,9 @@ diff -Naur lfs-9.1/chapter06/revisedchroot.xml lfs-9.1ppc/chapter06/revisedchroo
  
    <para>There are also several files installed in the /usr/lib and /usr/libexec
    directories with a file name extention of .la. These are "libtool archive"
-diff -Naur lfs-9.1/chapter07/usage.xml lfs-9.1ppc/chapter07/usage.xml
---- lfs-9.1/chapter07/usage.xml	2020-02-27 22:17:30.603679267 +0000
-+++ lfs-9.1ppc/chapter07/usage.xml	2020-02-27 22:19:03.417917783 +0000
+diff -Naur oldlfs/chapter07/usage.xml newlfs/chapter07/usage.xml
+--- oldlfs/chapter07/usage.xml	2020-03-01 23:23:30.717567409 +0000
++++ newlfs/chapter07/usage.xml	2020-03-01 23:24:38.776657468 +0000
 @@ -85,6 +85,9 @@
  4:2345:respawn:/sbin/agetty tty4 9600
  5:2345:respawn:/sbin/agetty tty5 9600
@@ -413,9 +413,9 @@ diff -Naur lfs-9.1/chapter07/usage.xml lfs-9.1ppc/chapter07/usage.xml
  
  # End /etc/inittab</literal>
  EOF</userinput></screen>
-diff -Naur lfs-9.1/chapter08/kernel.xml lfs-9.1ppc/chapter08/kernel.xml
---- lfs-9.1/chapter08/kernel.xml	2020-02-27 22:17:30.599680356 +0000
-+++ lfs-9.1ppc/chapter08/kernel.xml	2020-02-27 22:23:42.451152408 +0000
+diff -Naur oldlfs/chapter08/kernel.xml newlfs/chapter08/kernel.xml
+--- oldlfs/chapter08/kernel.xml	2020-03-01 23:23:30.713555565 +0000
++++ newlfs/chapter08/kernel.xml	2020-03-01 23:24:39.008780555 +0000
 @@ -238,7 +238,13 @@
      the automatic setup of the boot process described in the next section.  The
      following command assumes an x86 architecture:</para>
@@ -431,9 +431,9 @@ diff -Naur lfs-9.1/chapter08/kernel.xml lfs-9.1ppc/chapter08/kernel.xml
  
  <screen revision="systemd"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
  
-diff -Naur lfs-9.1/prologue/architecture.xml lfs-9.1ppc/prologue/architecture.xml
---- lfs-9.1/prologue/architecture.xml	2020-02-27 22:17:30.607678177 +0000
-+++ lfs-9.1ppc/prologue/architecture.xml	2020-02-27 22:19:03.425916226 +0000
+diff -Naur oldlfs/prologue/architecture.xml newlfs/prologue/architecture.xml
+--- oldlfs/prologue/architecture.xml	2020-03-01 23:23:30.697508189 +0000
++++ newlfs/prologue/architecture.xml	2020-03-01 23:27:08.069240737 +0000
 @@ -20,6 +20,10 @@
  distribution can be installed and used as a host system on a 64-bit AMD/Intel
  computer.</para>
@@ -442,6 +442,6 @@ diff -Naur lfs-9.1/prologue/architecture.xml lfs-9.1ppc/prologue/architecture.xm
 +modifications to the text and instructions that are intended to aid in 
 +the building of LFS for CPU architectures other than AMD/Intel.</para>
 +
- <para>Some other facts about 64-bit systems need to be added here. When
- compared to a 32-bit system, the sizes of executable programs are slightly
- larger and the execution speeds of arbitrary programs are only slightly faster.
+ <para>For building LFS, the gain of building on a 64-bit system
+ compared to a 32-bit system is minimal.
+ For example, in a test build of LFS-9.1 on a Core i7-4790 CPU based system,

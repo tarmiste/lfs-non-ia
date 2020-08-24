@@ -1,0 +1,32 @@
+diff -Naur lfs-development/chapter05/gcc-pass1.xml newlfs/chapter05/gcc-pass1.xml
+--- lfs-development/chapter05/gcc-pass1.xml	2020-08-24 00:12:02.811586929 +0000
++++ newlfs/chapter05/gcc-pass1.xml	2020-08-24 00:35:56.330396385 +0000
+@@ -69,6 +69,28 @@
+   x86_64)
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
++  ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++       -i.orig gcc/config/rs6000/t-linux64
++  ;;
++  aarch64)
++    sed -e '/mabi.lp64=/s/lib64/lib/' \
++    -i.orig gcc/config/aarch64/t-aarch64-linux
++ ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    #patch -Np1 -i ../gcc-9.2.0-armv6.patch
++ ;;
++  armv7l)
++    #patch -Np1 -i ../gcc-9.2.0-armv7.patch
++ ;;
++  armv8l)
++    #patch -Np1 -i ../gcc-9.2.0-armv8.patch
+  ;;
+ esac</userinput></screen>
+ 

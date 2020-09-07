@@ -1,7 +1,80 @@
-diff -Naurr lfs-10.0/chapter05/glibc.xml lfs-10.0work/chapter05/glibc.xml
+diff -Naur lfs-10.0/chapter04/addinguser.xml lfs-10.0work/chapter04/addinguser.xml
+--- lfs-10.0/chapter04/addinguser.xml	2020-09-06 21:52:30.746968660 +0000
++++ lfs-10.0work/chapter04/addinguser.xml	2020-09-07 19:45:49.708499527 +0000
+@@ -82,7 +82,7 @@
+ 
+ <screen><userinput>chown -v lfs $LFS/{usr,lib,var,etc,bin,sbin,tools}
+ case $(uname -m) in
+-  x86_64) chown -v lfs $LFS/lib64 ;;
++  *64) chown -v lfs $LFS/lib64 ;;
+ esac</userinput></screen>
+ 
+   <para>If a separate working directory was created as suggested, give
+diff -Naur lfs-10.0/chapter04/creatingminlayout.xml lfs-10.0work/chapter04/creatingminlayout.xml
+--- lfs-10.0/chapter04/creatingminlayout.xml	2020-09-06 21:52:30.746968660 +0000
++++ lfs-10.0work/chapter04/creatingminlayout.xml	2020-09-07 19:46:24.342580577 +0000
+@@ -21,7 +21,7 @@
+ 
+ <screen><userinput>mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var}
+ case $(uname -m) in
+-  x86_64) mkdir -pv $LFS/lib64 ;;
++  *64) mkdir -pv $LFS/lib64 ;;
+ esac</userinput></screen>
+ 
+   <para>Programs in <xref linkend="chapter-temporary-tools"/> will be compiled
+diff -Naur lfs-10.0/chapter05/gcc-pass1.xml lfs-10.0work/chapter05/gcc-pass1.xml
+--- lfs-10.0/chapter05/gcc-pass1.xml	2020-09-06 21:52:30.742968682 +0000
++++ lfs-10.0work/chapter05/gcc-pass1.xml	2020-09-07 19:51:04.183129539 +0000
+@@ -62,7 +62,7 @@
+ tar -xf ../mpc-&mpc-version;.tar.gz
+ mv -v mpc-&mpc-version; mpc</userinput></screen>
+ 
+-    <para>On x86_64 hosts, set the default directory name for
++    <para>On 64 bit hosts, set the default directory name for
+     64-bit libraries to <quote>lib</quote>:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
+@@ -70,6 +70,28 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+  ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++ ;;
++  aarch64)
++    sed -e '/mabi.lp64=/s/lib64/lib/' \
++    -i.orig gcc/config/aarch64/t-aarch64-linux
++ ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+     <para>The GCC documentation recommends building GCC 
+diff -Naur lfs-10.0/chapter05/glibc.xml lfs-10.0work/chapter05/glibc.xml
 --- lfs-10.0/chapter05/glibc.xml	2020-09-06 21:52:30.742968682 +0000
-+++ lfs-10.0work/chapter05/glibc.xml	2020-09-06 22:02:29.779771500 +0000
-@@ -179,16 +179,19 @@
++++ lfs-10.0work/chapter05/glibc.xml	2020-09-07 19:52:46.587814632 +0000
+@@ -75,6 +75,7 @@
+       --host=$LFS_TGT                    \
+       --build=$(../scripts/config.guess) \
+       --enable-kernel=&min-kernel;                \
++      --disable-werror \
+       --with-headers=$LFS/usr/include    \
+       libc_cv_slibdir=/lib</userinput></screen>
+ <!--
+@@ -179,16 +180,19 @@
  
  <screen><userinput>echo 'int main(){}' &gt; dummy.c
  $LFS_TGT-gcc dummy.c
@@ -23,7 +96,7 @@ diff -Naurr lfs-10.0/chapter05/glibc.xml lfs-10.0work/chapter05/glibc.xml
        <para>If the output is not shown as above or there was no output at all,
        then something is wrong. Investigate and retrace the steps to find out
        where the problem is and correct it. This issue must be resolved before
-diff -Naurr lfs-10.0/chapter08/chapter08.xml lfs-10.0work/chapter08/chapter08.xml
+diff -Naur lfs-10.0/chapter08/chapter08.xml lfs-10.0work/chapter08/chapter08.xml
 --- lfs-10.0/chapter08/chapter08.xml	2020-09-06 21:52:30.734968724 +0000
 +++ lfs-10.0work/chapter08/chapter08.xml	2020-09-06 22:04:11.671227685 +0000
 @@ -70,7 +70,6 @@
@@ -34,7 +107,7 @@ diff -Naurr lfs-10.0/chapter08/chapter08.xml lfs-10.0work/chapter08/chapter08.xm
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="less.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
-diff -Naurr lfs-10.0/chapter08/coreutils.xml lfs-10.0work/chapter08/coreutils.xml
+diff -Naur lfs-10.0/chapter08/coreutils.xml lfs-10.0work/chapter08/coreutils.xml
 --- lfs-10.0/chapter08/coreutils.xml	2020-09-06 21:52:30.730968746 +0000
 +++ lfs-10.0work/chapter08/coreutils.xml	2020-09-06 22:19:09.082068271 +0000
 @@ -45,7 +45,7 @@
@@ -46,7 +119,48 @@ diff -Naurr lfs-10.0/chapter08/coreutils.xml lfs-10.0work/chapter08/coreutils.xm
  
      <note>
        <para>In the past, many bugs were found in this patch. When reporting new
-diff -Naurr lfs-10.0/chapter08/gmp.xml lfs-10.0work/chapter08/gmp.xml
+diff -Naur lfs-10.0/chapter08/gcc.xml lfs-10.0work/chapter08/gcc.xml
+--- lfs-10.0/chapter08/gcc.xml	2020-09-06 21:52:30.730968746 +0000
++++ lfs-10.0work/chapter08/gcc.xml	2020-09-07 20:02:48.095969334 +0000
+@@ -49,6 +49,28 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+   ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++  ;;
++  aarch64)
++    sed -e '/mabi.lp64=/s/lib64/lib/' \
++    -i.orig gcc/config/aarch64/t-aarch64-linux
++  ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+     <para>The GCC documentation recommends building GCC in a dedicated build directory:</para>
+@@ -158,7 +180,7 @@
+     <systemitem class="username">root</systemitem> user and group:</para>
+ 
+ <screen><userinput remap="install">chown -v -R root:root \
+-    /usr/lib/gcc/*linux-gnu/&gcc-version;/include{,-fixed}</userinput></screen>
++    /usr/lib/gcc/*linux-gnu*/&gcc-version;/include{,-fixed}</userinput></screen>
+ 
+     <para>Create a symlink required by the <ulink
+     url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
+diff -Naur lfs-10.0/chapter08/gmp.xml lfs-10.0work/chapter08/gmp.xml
 --- lfs-10.0/chapter08/gmp.xml	2020-09-06 21:52:30.738968703 +0000
 +++ lfs-10.0work/chapter08/gmp.xml	2020-09-06 22:06:15.210568330 +0000
 @@ -60,6 +60,9 @@
@@ -59,7 +173,7 @@ diff -Naurr lfs-10.0/chapter08/gmp.xml lfs-10.0work/chapter08/gmp.xml
      <para>Prepare GMP for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr    \
-diff -Naurr lfs-10.0/chapter08/libffi.xml lfs-10.0work/chapter08/libffi.xml
+diff -Naur lfs-10.0/chapter08/libffi.xml lfs-10.0work/chapter08/libffi.xml
 --- lfs-10.0/chapter08/libffi.xml	2020-09-06 21:52:30.734968724 +0000
 +++ lfs-10.0work/chapter08/libffi.xml	2020-09-06 22:07:38.222125281 +0000
 @@ -50,6 +50,15 @@
@@ -78,7 +192,7 @@ diff -Naurr lfs-10.0/chapter08/libffi.xml lfs-10.0work/chapter08/libffi.xml
      <para>Prepare libffi for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr --disable-static --with-gcc-arch=native</userinput></screen>
-diff -Naurr lfs-10.0/chapter08/openssl.xml lfs-10.0work/chapter08/openssl.xml
+diff -Naur lfs-10.0/chapter08/openssl.xml lfs-10.0work/chapter08/openssl.xml
 --- lfs-10.0/chapter08/openssl.xml	2020-09-06 21:52:30.734968724 +0000
 +++ lfs-10.0work/chapter08/openssl.xml	2020-09-06 22:09:54.417398380 +0000
 @@ -45,11 +45,37 @@
@@ -121,7 +235,7 @@ diff -Naurr lfs-10.0/chapter08/openssl.xml lfs-10.0work/chapter08/openssl.xml
  
      <para>Compile the package:</para>
  
-diff -Naurr lfs-10.0/chapter09/usage.xml lfs-10.0work/chapter09/usage.xml
+diff -Naur lfs-10.0/chapter09/usage.xml lfs-10.0work/chapter09/usage.xml
 --- lfs-10.0/chapter09/usage.xml	2020-09-06 21:52:30.730968746 +0000
 +++ lfs-10.0work/chapter09/usage.xml	2020-09-06 22:15:21.355653444 +0000
 @@ -85,6 +85,9 @@
@@ -134,7 +248,7 @@ diff -Naurr lfs-10.0/chapter09/usage.xml lfs-10.0work/chapter09/usage.xml
  
  # End /etc/inittab</literal>
  EOF</userinput></screen>
-diff -Naurr lfs-10.0/chapter10/kernel.xml lfs-10.0work/chapter10/kernel.xml
+diff -Naur lfs-10.0/chapter10/kernel.xml lfs-10.0work/chapter10/kernel.xml
 --- lfs-10.0/chapter10/kernel.xml	2020-09-06 21:52:30.726968767 +0000
 +++ lfs-10.0work/chapter10/kernel.xml	2020-09-06 22:13:40.780190235 +0000
 @@ -239,8 +239,14 @@
@@ -154,7 +268,7 @@ diff -Naurr lfs-10.0/chapter10/kernel.xml lfs-10.0work/chapter10/kernel.xml
  <screen revision="systemd"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
  
      <para><filename>System.map</filename> is a symbol file for the kernel.
-diff -Naurr lfs-10.0/prologue/architecture.xml lfs-10.0work/prologue/architecture.xml
+diff -Naur lfs-10.0/prologue/architecture.xml lfs-10.0work/prologue/architecture.xml
 --- lfs-10.0/prologue/architecture.xml	2020-09-06 21:52:30.766968554 +0000
 +++ lfs-10.0work/prologue/architecture.xml	2020-09-06 22:11:36.652852728 +0000
 @@ -20,6 +20,10 @@

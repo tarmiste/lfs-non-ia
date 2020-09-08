@@ -52,13 +52,13 @@ diff -Naur lfs-10.0/chapter05/gcc-pass1.xml lfs-10.0work/chapter05/gcc-pass1.xml
 +
 +<screen><userinput remap="pre">case $(uname -m) in
 +  armv6l)
-+    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++    patch -Np1 -i ../gcc-9.2.0-armv6.patch
 + ;;
 +  armv7l)
-+    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++    patch -Np1 -i ../gcc-9.2.0-armv7.patch
 + ;;
 +  armv8l)
-+    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++    patch -Np1 -i ../gcc-9.2.0-armv8.patch
 + ;;
  esac</userinput></screen>
  
@@ -96,6 +96,38 @@ diff -Naur lfs-10.0/chapter05/glibc.xml lfs-10.0work/chapter05/glibc.xml
        <para>If the output is not shown as above or there was no output at all,
        then something is wrong. Investigate and retrace the steps to find out
        where the problem is and correct it. This issue must be resolved before
+diff -Naur lfs-10.0/chapter07/libstdc++-pass2.xml lfs-10.0work/chapter07/libstdc++-pass2.xml
+--- lfs-10.0/chapter07/libstdc++-pass2.xml	2020-09-06 21:52:30.742968682 +0000
++++ lfs-10.0work/chapter07/libstdc++-pass2.xml	2020-09-08 23:48:31.710544081 +0000
+@@ -62,13 +62,26 @@
+ 
+     <para>Prepare libstdc++ for compilation:</para>
+ 
+-<screen><userinput remap="configure">../libstdc++-v3/configure            \
++<screen><userinput remap="configure">case $(uname -m) in
++  armv*) 
++   ../libstdc++-v3/configure            \
++    CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
++    --prefix=/usr                    \
++    --disable-multilib               \
++    --disable-nls                    \
++    --host=$(uname -m)-lfs-linux-gnueabihf \
++    --disable-libstdcxx-pch
++ ;;
++ *;;
++   ../libstdc++-v3/configure            \
+     CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
+     --prefix=/usr                    \
+     --disable-multilib               \
+     --disable-nls                    \
+     --host=$(uname -m)-lfs-linux-gnu \
+-    --disable-libstdcxx-pch</userinput></screen>
++    --disable-libstdcxx-pch
++ ;;
++esac</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure options:</title>
 diff -Naur lfs-10.0/chapter08/chapter08.xml lfs-10.0work/chapter08/chapter08.xml
 --- lfs-10.0/chapter08/chapter08.xml	2020-09-06 21:52:30.734968724 +0000
 +++ lfs-10.0work/chapter08/chapter08.xml	2020-09-06 22:04:11.671227685 +0000
@@ -140,13 +172,13 @@ diff -Naur lfs-10.0/chapter08/gcc.xml lfs-10.0work/chapter08/gcc.xml
 +
 +<screen><userinput remap="pre">case $(uname -m) in
 +  armv6l)
-+    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++    patch -Np1 -i ../gcc-9.2.0-armv6.patch
 + ;;
 +  armv7l)
-+    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++    patch -Np1 -i ../gcc-9.2.0-armv7.patch
 + ;;
 +  armv8l)
-+    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++    patch -Np1 -i ../gcc-9.2.0-armv8.patch
 + ;;
  esac</userinput></screen>
  

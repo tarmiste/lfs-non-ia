@@ -1,6 +1,6 @@
-diff -Naur lfs-10.0/chapter04/addinguser.xml lfs-10.0work/chapter04/addinguser.xml
+diff -Naur lfs-10.0/chapter04/addinguser.xml lfs-10.0new/chapter04/addinguser.xml
 --- lfs-10.0/chapter04/addinguser.xml	2020-09-06 21:52:30.746968660 +0000
-+++ lfs-10.0work/chapter04/addinguser.xml	2020-09-07 19:45:49.708499527 +0000
++++ lfs-10.0new/chapter04/addinguser.xml	2020-11-13 13:50:15.933021633 +0000
 @@ -82,7 +82,7 @@
  
  <screen><userinput>chown -v lfs $LFS/{usr,lib,var,etc,bin,sbin,tools}
@@ -10,9 +10,9 @@ diff -Naur lfs-10.0/chapter04/addinguser.xml lfs-10.0work/chapter04/addinguser.x
  esac</userinput></screen>
  
    <para>If a separate working directory was created as suggested, give
-diff -Naur lfs-10.0/chapter04/creatingminlayout.xml lfs-10.0work/chapter04/creatingminlayout.xml
+diff -Naur lfs-10.0/chapter04/creatingminlayout.xml lfs-10.0new/chapter04/creatingminlayout.xml
 --- lfs-10.0/chapter04/creatingminlayout.xml	2020-09-06 21:52:30.746968660 +0000
-+++ lfs-10.0work/chapter04/creatingminlayout.xml	2020-09-07 19:46:24.342580577 +0000
++++ lfs-10.0new/chapter04/creatingminlayout.xml	2020-11-13 13:50:15.933021633 +0000
 @@ -21,7 +21,7 @@
  
  <screen><userinput>mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var}
@@ -22,9 +22,9 @@ diff -Naur lfs-10.0/chapter04/creatingminlayout.xml lfs-10.0work/chapter04/creat
  esac</userinput></screen>
  
    <para>Programs in <xref linkend="chapter-temporary-tools"/> will be compiled
-diff -Naur lfs-10.0/chapter05/gcc-pass1.xml lfs-10.0work/chapter05/gcc-pass1.xml
+diff -Naur lfs-10.0/chapter05/gcc-pass1.xml lfs-10.0new/chapter05/gcc-pass1.xml
 --- lfs-10.0/chapter05/gcc-pass1.xml	2020-09-06 21:52:30.742968682 +0000
-+++ lfs-10.0work/chapter05/gcc-pass1.xml	2020-09-07 19:51:04.183129539 +0000
++++ lfs-10.0new/chapter05/gcc-pass1.xml	2020-11-13 13:50:15.937022851 +0000
 @@ -62,7 +62,7 @@
  tar -xf ../mpc-&mpc-version;.tar.gz
  mv -v mpc-&mpc-version; mpc</userinput></screen>
@@ -63,9 +63,9 @@ diff -Naur lfs-10.0/chapter05/gcc-pass1.xml lfs-10.0work/chapter05/gcc-pass1.xml
  esac</userinput></screen>
  
      <para>The GCC documentation recommends building GCC 
-diff -Naur lfs-10.0/chapter05/glibc.xml lfs-10.0work/chapter05/glibc.xml
+diff -Naur lfs-10.0/chapter05/glibc.xml lfs-10.0new/chapter05/glibc.xml
 --- lfs-10.0/chapter05/glibc.xml	2020-09-06 21:52:30.742968682 +0000
-+++ lfs-10.0work/chapter05/glibc.xml	2020-09-07 19:52:46.587814632 +0000
++++ lfs-10.0new/chapter05/glibc.xml	2020-11-13 13:50:15.941024068 +0000
 @@ -75,6 +75,7 @@
        --host=$LFS_TGT                    \
        --build=$(../scripts/config.guess) \
@@ -96,9 +96,9 @@ diff -Naur lfs-10.0/chapter05/glibc.xml lfs-10.0work/chapter05/glibc.xml
        <para>If the output is not shown as above or there was no output at all,
        then something is wrong. Investigate and retrace the steps to find out
        where the problem is and correct it. This issue must be resolved before
-diff -Naur lfs-10.0/chapter07/libstdc++-pass2.xml lfs-10.0work/chapter07/libstdc++-pass2.xml
+diff -Naur lfs-10.0/chapter07/libstdc++-pass2.xml lfs-10.0new/chapter07/libstdc++-pass2.xml
 --- lfs-10.0/chapter07/libstdc++-pass2.xml	2020-09-06 21:52:30.742968682 +0000
-+++ lfs-10.0work/chapter07/libstdc++-pass2.xml	2020-09-08 23:48:31.710544081 +0000
++++ lfs-10.0new/chapter07/libstdc++-pass2.xml	2020-11-13 13:51:21.189660852 +0000
 @@ -62,13 +62,26 @@
  
      <para>Prepare libstdc++ for compilation:</para>
@@ -114,7 +114,7 @@ diff -Naur lfs-10.0/chapter07/libstdc++-pass2.xml lfs-10.0work/chapter07/libstdc
 +    --host=$(uname -m)-lfs-linux-gnueabihf \
 +    --disable-libstdcxx-pch
 + ;;
-+ *;;
++ *);;
 +   ../libstdc++-v3/configure            \
      CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
      --prefix=/usr                    \
@@ -128,9 +128,9 @@ diff -Naur lfs-10.0/chapter07/libstdc++-pass2.xml lfs-10.0work/chapter07/libstdc
  
      <variablelist>
        <title>The meaning of the configure options:</title>
-diff -Naur lfs-10.0/chapter08/chapter08.xml lfs-10.0work/chapter08/chapter08.xml
+diff -Naur lfs-10.0/chapter08/chapter08.xml lfs-10.0new/chapter08/chapter08.xml
 --- lfs-10.0/chapter08/chapter08.xml	2020-09-06 21:52:30.734968724 +0000
-+++ lfs-10.0work/chapter08/chapter08.xml	2020-09-06 22:04:11.671227685 +0000
++++ lfs-10.0new/chapter08/chapter08.xml	2020-11-13 13:50:15.945025286 +0000
 @@ -70,7 +70,6 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
@@ -139,9 +139,9 @@ diff -Naur lfs-10.0/chapter08/chapter08.xml lfs-10.0work/chapter08/chapter08.xml
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="less.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
-diff -Naur lfs-10.0/chapter08/coreutils.xml lfs-10.0work/chapter08/coreutils.xml
+diff -Naur lfs-10.0/chapter08/coreutils.xml lfs-10.0new/chapter08/coreutils.xml
 --- lfs-10.0/chapter08/coreutils.xml	2020-09-06 21:52:30.730968746 +0000
-+++ lfs-10.0work/chapter08/coreutils.xml	2020-09-06 22:19:09.082068271 +0000
++++ lfs-10.0new/chapter08/coreutils.xml	2020-11-13 13:50:15.949026504 +0000
 @@ -45,7 +45,7 @@
      boundaries correctly even in multibyte locales. The following patch fixes
      this non-compliance and other internationalization-related bugs.</para>
@@ -151,9 +151,9 @@ diff -Naur lfs-10.0/chapter08/coreutils.xml lfs-10.0work/chapter08/coreutils.xml
  
      <note>
        <para>In the past, many bugs were found in this patch. When reporting new
-diff -Naur lfs-10.0/chapter08/gcc.xml lfs-10.0work/chapter08/gcc.xml
+diff -Naur lfs-10.0/chapter08/gcc.xml lfs-10.0new/chapter08/gcc.xml
 --- lfs-10.0/chapter08/gcc.xml	2020-09-06 21:52:30.730968746 +0000
-+++ lfs-10.0work/chapter08/gcc.xml	2020-09-07 20:02:48.095969334 +0000
++++ lfs-10.0new/chapter08/gcc.xml	2020-11-13 13:50:15.953027722 +0000
 @@ -49,6 +49,28 @@
      sed -e '/m64=/s/lib64/lib/' \
          -i.orig gcc/config/i386/t-linux64
@@ -192,9 +192,9 @@ diff -Naur lfs-10.0/chapter08/gcc.xml lfs-10.0work/chapter08/gcc.xml
  
      <para>Create a symlink required by the <ulink
      url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
-diff -Naur lfs-10.0/chapter08/gmp.xml lfs-10.0work/chapter08/gmp.xml
+diff -Naur lfs-10.0/chapter08/gmp.xml lfs-10.0new/chapter08/gmp.xml
 --- lfs-10.0/chapter08/gmp.xml	2020-09-06 21:52:30.738968703 +0000
-+++ lfs-10.0work/chapter08/gmp.xml	2020-09-06 22:06:15.210568330 +0000
++++ lfs-10.0new/chapter08/gmp.xml	2020-11-13 13:50:15.953027722 +0000
 @@ -60,6 +60,9 @@
  cp -v configfsf.sub   config.sub</userinput></screen></para>
      </note>
@@ -205,9 +205,9 @@ diff -Naur lfs-10.0/chapter08/gmp.xml lfs-10.0work/chapter08/gmp.xml
      <para>Prepare GMP for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr    \
-diff -Naur lfs-10.0/chapter08/libffi.xml lfs-10.0work/chapter08/libffi.xml
+diff -Naur lfs-10.0/chapter08/libffi.xml lfs-10.0new/chapter08/libffi.xml
 --- lfs-10.0/chapter08/libffi.xml	2020-09-06 21:52:30.734968724 +0000
-+++ lfs-10.0work/chapter08/libffi.xml	2020-09-06 22:07:38.222125281 +0000
++++ lfs-10.0new/chapter08/libffi.xml	2020-11-13 13:50:15.957028940 +0000
 @@ -50,6 +50,15 @@
        Illegal Operation Errors.</para>
      </note>
@@ -224,9 +224,9 @@ diff -Naur lfs-10.0/chapter08/libffi.xml lfs-10.0work/chapter08/libffi.xml
      <para>Prepare libffi for compilation:</para>
  
  <screen><userinput remap="configure">./configure --prefix=/usr --disable-static --with-gcc-arch=native</userinput></screen>
-diff -Naur lfs-10.0/chapter08/openssl.xml lfs-10.0work/chapter08/openssl.xml
+diff -Naur lfs-10.0/chapter08/openssl.xml lfs-10.0new/chapter08/openssl.xml
 --- lfs-10.0/chapter08/openssl.xml	2020-09-06 21:52:30.734968724 +0000
-+++ lfs-10.0work/chapter08/openssl.xml	2020-09-06 22:09:54.417398380 +0000
++++ lfs-10.0new/chapter08/openssl.xml	2020-11-13 13:50:15.957028940 +0000
 @@ -45,11 +45,37 @@
  
      <para>Prepare OpenSSL for compilation:</para>
@@ -267,9 +267,9 @@ diff -Naur lfs-10.0/chapter08/openssl.xml lfs-10.0work/chapter08/openssl.xml
  
      <para>Compile the package:</para>
  
-diff -Naur lfs-10.0/chapter09/usage.xml lfs-10.0work/chapter09/usage.xml
+diff -Naur lfs-10.0/chapter09/usage.xml lfs-10.0new/chapter09/usage.xml
 --- lfs-10.0/chapter09/usage.xml	2020-09-06 21:52:30.730968746 +0000
-+++ lfs-10.0work/chapter09/usage.xml	2020-09-06 22:15:21.355653444 +0000
++++ lfs-10.0new/chapter09/usage.xml	2020-11-13 13:50:15.961030157 +0000
 @@ -85,6 +85,9 @@
  4:2345:respawn:/sbin/agetty tty4 9600
  5:2345:respawn:/sbin/agetty tty5 9600
@@ -280,9 +280,9 @@ diff -Naur lfs-10.0/chapter09/usage.xml lfs-10.0work/chapter09/usage.xml
  
  # End /etc/inittab</literal>
  EOF</userinput></screen>
-diff -Naur lfs-10.0/chapter10/kernel.xml lfs-10.0work/chapter10/kernel.xml
+diff -Naur lfs-10.0/chapter10/kernel.xml lfs-10.0new/chapter10/kernel.xml
 --- lfs-10.0/chapter10/kernel.xml	2020-09-06 21:52:30.726968767 +0000
-+++ lfs-10.0work/chapter10/kernel.xml	2020-09-06 22:13:40.780190235 +0000
++++ lfs-10.0new/chapter10/kernel.xml	2020-11-13 13:50:15.965031375 +0000
 @@ -239,8 +239,14 @@
      the automatic setup of the boot process described in the next section.  The
      following command assumes an x86 architecture:</para>
@@ -300,9 +300,9 @@ diff -Naur lfs-10.0/chapter10/kernel.xml lfs-10.0work/chapter10/kernel.xml
  <screen revision="systemd"><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&versiond;</userinput></screen>
  
      <para><filename>System.map</filename> is a symbol file for the kernel.
-diff -Naur lfs-10.0/prologue/architecture.xml lfs-10.0work/prologue/architecture.xml
+diff -Naur lfs-10.0/prologue/architecture.xml lfs-10.0new/prologue/architecture.xml
 --- lfs-10.0/prologue/architecture.xml	2020-09-06 21:52:30.766968554 +0000
-+++ lfs-10.0work/prologue/architecture.xml	2020-09-06 22:11:36.652852728 +0000
++++ lfs-10.0new/prologue/architecture.xml	2020-11-13 13:50:15.965031375 +0000
 @@ -20,6 +20,10 @@
  distribution can be installed and used as a host system on a 64-bit AMD/Intel
  computer.</para>

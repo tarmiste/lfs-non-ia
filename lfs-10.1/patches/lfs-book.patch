@@ -1,6 +1,6 @@
 diff -Naur lfs-development/chapter04/addinguser.xml lfs-wip/chapter04/addinguser.xml
---- lfs-development/chapter04/addinguser.xml	2021-02-04 11:26:28.836574934 +0000
-+++ lfs-wip/chapter04/addinguser.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter04/addinguser.xml	2021-02-05 18:55:24.524270786 +0000
++++ lfs-wip/chapter04/addinguser.xml	2021-02-05 18:56:48.407024474 +0000
 @@ -82,7 +82,7 @@
  
  <screen><userinput>chown -v lfs $LFS/{usr,lib,var,etc,bin,sbin,tools}
@@ -11,8 +11,8 @@ diff -Naur lfs-development/chapter04/addinguser.xml lfs-wip/chapter04/addinguser
  
    <para>If a separate working directory was created as suggested, give
 diff -Naur lfs-development/chapter04/creatingminlayout.xml lfs-wip/chapter04/creatingminlayout.xml
---- lfs-development/chapter04/creatingminlayout.xml	2021-02-04 11:26:28.836574934 +0000
-+++ lfs-wip/chapter04/creatingminlayout.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter04/creatingminlayout.xml	2021-02-05 18:55:24.524270786 +0000
++++ lfs-wip/chapter04/creatingminlayout.xml	2021-02-05 18:56:48.411024563 +0000
 @@ -21,7 +21,7 @@
  
  <screen><userinput>mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var}
@@ -23,8 +23,8 @@ diff -Naur lfs-development/chapter04/creatingminlayout.xml lfs-wip/chapter04/cre
  
    <para>Programs in <xref linkend="chapter-temporary-tools"/> will be compiled
 diff -Naur lfs-development/chapter05/gcc-pass1.xml lfs-wip/chapter05/gcc-pass1.xml
---- lfs-development/chapter05/gcc-pass1.xml	2021-02-04 11:26:28.836574934 +0000
-+++ lfs-wip/chapter05/gcc-pass1.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter05/gcc-pass1.xml	2021-02-05 18:55:24.516270683 +0000
++++ lfs-wip/chapter05/gcc-pass1.xml	2021-02-05 18:56:48.415024652 +0000
 @@ -62,7 +62,7 @@
  tar -xf ../mpc-&mpc-version;.tar.gz
  mv -v mpc-&mpc-version; mpc</userinput></screen>
@@ -64,8 +64,8 @@ diff -Naur lfs-development/chapter05/gcc-pass1.xml lfs-wip/chapter05/gcc-pass1.x
  
      <para>The GCC documentation recommends building GCC 
 diff -Naur lfs-development/chapter05/glibc.xml lfs-wip/chapter05/glibc.xml
---- lfs-development/chapter05/glibc.xml	2021-02-04 11:26:28.836574934 +0000
-+++ lfs-wip/chapter05/glibc.xml	2021-02-04 23:40:41.188874204 +0000
+--- lfs-development/chapter05/glibc.xml	2021-02-05 18:55:24.516270683 +0000
++++ lfs-wip/chapter05/glibc.xml	2021-02-05 18:56:50.903079303 +0000
 @@ -53,6 +53,12 @@
      x86_64) ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64
              ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
@@ -110,8 +110,8 @@ diff -Naur lfs-development/chapter05/glibc.xml lfs-wip/chapter05/glibc.xml
        then something is wrong. Investigate and retrace the steps to find out
        where the problem is and correct it. This issue must be resolved before
 diff -Naur lfs-development/chapter06/coreutils.xml lfs-wip/chapter06/coreutils.xml
---- lfs-development/chapter06/coreutils.xml	2021-02-04 11:26:28.826575128 +0000
-+++ lfs-wip/chapter06/coreutils.xml	2021-02-05 00:54:28.791527932 +0000
+--- lfs-development/chapter06/coreutils.xml	2021-02-05 18:55:24.476270168 +0000
++++ lfs-wip/chapter06/coreutils.xml	2021-02-05 18:56:50.903079303 +0000
 @@ -45,6 +45,10 @@
  
      <para>Prepare Coreutils for compilation:</para>
@@ -124,8 +124,8 @@ diff -Naur lfs-development/chapter06/coreutils.xml lfs-wip/chapter06/coreutils.x
              --host=$LFS_TGT                   \
              --build=$(build-aux/config.guess) \
 diff -Naur lfs-development/chapter06/gcc-pass2.xml lfs-wip/chapter06/gcc-pass2.xml
---- lfs-development/chapter06/gcc-pass2.xml	2021-02-04 11:26:28.826575128 +0000
-+++ lfs-wip/chapter06/gcc-pass2.xml	2021-02-05 01:18:40.091479653 +0000
+--- lfs-development/chapter06/gcc-pass2.xml	2021-02-05 18:55:24.472270117 +0000
++++ lfs-wip/chapter06/gcc-pass2.xml	2021-02-05 18:56:50.907079391 +0000
 @@ -60,8 +60,31 @@
  <screen><userinput remap="pre">case $(uname -m) in
    x86_64)
@@ -160,8 +160,8 @@ diff -Naur lfs-development/chapter06/gcc-pass2.xml lfs-wip/chapter06/gcc-pass2.x
      <para>Fix an issue with GCC-10.1 when building with a cross
      compiler:</para>
 diff -Naur lfs-development/chapter07/changingowner.xml lfs-wip/chapter07/changingowner.xml
---- lfs-development/chapter07/changingowner.xml	2021-02-04 11:26:28.826575128 +0000
-+++ lfs-wip/chapter07/changingowner.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter07/changingowner.xml	2021-02-05 18:55:24.484270271 +0000
++++ lfs-wip/chapter07/changingowner.xml	2021-02-05 18:56:50.911079478 +0000
 @@ -35,7 +35,7 @@
  
  <screen><userinput>chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
@@ -172,8 +172,8 @@ diff -Naur lfs-development/chapter07/changingowner.xml lfs-wip/chapter07/changin
  
  </sect1>
 diff -Naur lfs-development/chapter07/libstdc++-pass2.xml lfs-wip/chapter07/libstdc++-pass2.xml
---- lfs-development/chapter07/libstdc++-pass2.xml	2021-02-04 11:26:28.826575128 +0000
-+++ lfs-wip/chapter07/libstdc++-pass2.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter07/libstdc++-pass2.xml	2021-02-05 18:55:24.480270220 +0000
++++ lfs-wip/chapter07/libstdc++-pass2.xml	2021-02-05 18:56:50.911079478 +0000
 @@ -62,13 +62,26 @@
  
      <para>Prepare libstdc++ for compilation:</para>
@@ -204,8 +204,8 @@ diff -Naur lfs-development/chapter07/libstdc++-pass2.xml lfs-wip/chapter07/libst
      <variablelist>
        <title>The meaning of the configure options:</title>
 diff -Naur lfs-development/chapter08/chapter08.xml lfs-wip/chapter08/chapter08.xml
---- lfs-development/chapter08/chapter08.xml	2021-02-04 11:26:28.816575322 +0000
-+++ lfs-wip/chapter08/chapter08.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter08/chapter08.xml	2021-02-05 18:55:24.464270014 +0000
++++ lfs-wip/chapter08/chapter08.xml	2021-02-05 18:56:50.915079565 +0000
 @@ -70,7 +70,6 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
@@ -215,9 +215,18 @@ diff -Naur lfs-development/chapter08/chapter08.xml lfs-wip/chapter08/chapter08.x
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
 diff -Naur lfs-development/chapter08/coreutils.xml lfs-wip/chapter08/coreutils.xml
---- lfs-development/chapter08/coreutils.xml	2021-02-04 11:26:28.816575322 +0000
-+++ lfs-wip/chapter08/coreutils.xml	2021-02-04 11:27:18.035621492 +0000
-@@ -45,7 +45,7 @@
+--- lfs-development/chapter08/coreutils.xml	2021-02-05 18:55:24.464270014 +0000
++++ lfs-wip/chapter08/coreutils.xml	2021-02-05 18:57:56.896289191 +0000
+@@ -41,11 +41,16 @@
+   <sect2 role="installation">
+     <title>Installation of Coreutils</title>
+ 
++<screen><userinput remap="pre">
++    patch -Np1 -i ../coreutils.patch
++</userinput></screen>
++
++<screen><userinput remap="configure">./configure --prefix=/usr                     \
+     <para>POSIX requires that programs from Coreutils recognize character
      boundaries correctly even in multibyte locales. The following patch fixes
      this non-compliance and other internationalization-related bugs.</para>
  
@@ -227,8 +236,8 @@ diff -Naur lfs-development/chapter08/coreutils.xml lfs-wip/chapter08/coreutils.x
      <note>
        <para>In the past, many bugs were found in this patch. When reporting new
 diff -Naur lfs-development/chapter08/gcc.xml lfs-wip/chapter08/gcc.xml
---- lfs-development/chapter08/gcc.xml	2021-02-04 11:26:28.816575322 +0000
-+++ lfs-wip/chapter08/gcc.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter08/gcc.xml	2021-02-05 18:55:24.464270014 +0000
++++ lfs-wip/chapter08/gcc.xml	2021-02-05 18:56:50.923079739 +0000
 @@ -49,6 +49,28 @@
      sed -e '/m64=/s/lib64/lib/' \
          -i.orig gcc/config/i386/t-linux64
@@ -268,8 +277,8 @@ diff -Naur lfs-development/chapter08/gcc.xml lfs-wip/chapter08/gcc.xml
      <para>Create a symlink required by the <ulink
      url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
 diff -Naur lfs-development/chapter08/glibc.xml lfs-wip/chapter08/glibc.xml
---- lfs-development/chapter08/glibc.xml	2021-02-04 11:26:28.816575322 +0000
-+++ lfs-wip/chapter08/glibc.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter08/glibc.xml	2021-02-05 18:55:24.464270014 +0000
++++ lfs-wip/chapter08/glibc.xml	2021-02-05 18:56:50.923079739 +0000
 @@ -129,6 +129,7 @@
  <!--<screen><userinput remap="make">case $(uname -m) in
    i?86)   ln -sfnv $PWD/elf/ld-linux.so.2        /lib ;;
@@ -279,8 +288,8 @@ diff -Naur lfs-development/chapter08/glibc.xml lfs-wip/chapter08/glibc.xml
  
      <note><para>The symbolic link above is needed to run the tests at this
 diff -Naur lfs-development/chapter08/gmp.xml lfs-wip/chapter08/gmp.xml
---- lfs-development/chapter08/gmp.xml	2021-02-04 11:26:28.826575128 +0000
-+++ lfs-wip/chapter08/gmp.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter08/gmp.xml	2021-02-05 18:55:24.468270065 +0000
++++ lfs-wip/chapter08/gmp.xml	2021-02-05 18:56:50.927079826 +0000
 @@ -60,6 +60,9 @@
  cp -v configfsf.sub   config.sub</userinput></screen></para>
      </note>
@@ -292,8 +301,8 @@ diff -Naur lfs-development/chapter08/gmp.xml lfs-wip/chapter08/gmp.xml
  
  <screen><userinput remap="configure">./configure --prefix=/usr    \
 diff -Naur lfs-development/chapter08/libffi.xml lfs-wip/chapter08/libffi.xml
---- lfs-development/chapter08/libffi.xml	2021-02-04 11:26:28.816575322 +0000
-+++ lfs-wip/chapter08/libffi.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter08/libffi.xml	2021-02-05 18:55:24.468270065 +0000
++++ lfs-wip/chapter08/libffi.xml	2021-02-05 18:56:51.011081657 +0000
 @@ -50,6 +50,15 @@
        Illegal Operation Errors.</para>
      </note>
@@ -311,8 +320,8 @@ diff -Naur lfs-development/chapter08/libffi.xml lfs-wip/chapter08/libffi.xml
  
  <screen><userinput remap="configure">./configure --prefix=/usr --disable-static --with-gcc-arch=native</userinput></screen>
 diff -Naur lfs-development/chapter08/openssl.xml lfs-wip/chapter08/openssl.xml
---- lfs-development/chapter08/openssl.xml	2021-02-04 11:26:28.816575322 +0000
-+++ lfs-wip/chapter08/openssl.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter08/openssl.xml	2021-02-05 18:55:24.464270014 +0000
++++ lfs-wip/chapter08/openssl.xml	2021-02-05 18:56:51.015081743 +0000
 @@ -45,11 +45,37 @@
  
      <para>Prepare OpenSSL for compilation:</para>
@@ -354,8 +363,8 @@ diff -Naur lfs-development/chapter08/openssl.xml lfs-wip/chapter08/openssl.xml
      <para>Compile the package:</para>
  
 diff -Naur lfs-development/chapter09/usage.xml lfs-wip/chapter09/usage.xml
---- lfs-development/chapter09/usage.xml	2021-02-04 11:26:28.826575128 +0000
-+++ lfs-wip/chapter09/usage.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter09/usage.xml	2021-02-05 18:55:24.500270477 +0000
++++ lfs-wip/chapter09/usage.xml	2021-02-05 18:56:51.015081743 +0000
 @@ -85,6 +85,9 @@
  4:2345:respawn:/sbin/agetty tty4 9600
  5:2345:respawn:/sbin/agetty tty5 9600
@@ -367,8 +376,8 @@ diff -Naur lfs-development/chapter09/usage.xml lfs-wip/chapter09/usage.xml
  # End /etc/inittab</literal>
  EOF</userinput></screen>
 diff -Naur lfs-development/chapter10/kernel.xml lfs-wip/chapter10/kernel.xml
---- lfs-development/chapter10/kernel.xml	2021-02-04 11:26:28.836574934 +0000
-+++ lfs-wip/chapter10/kernel.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/chapter10/kernel.xml	2021-02-05 18:55:24.520270735 +0000
++++ lfs-wip/chapter10/kernel.xml	2021-02-05 18:56:51.019081830 +0000
 @@ -237,8 +237,14 @@
      the automatic setup of the boot process described in the next section.  The
      following command assumes an x86 architecture:</para>
@@ -387,8 +396,8 @@ diff -Naur lfs-development/chapter10/kernel.xml lfs-wip/chapter10/kernel.xml
  
      <para><filename>System.map</filename> is a symbol file for the kernel.
 diff -Naur lfs-development/prologue/architecture.xml lfs-wip/prologue/architecture.xml
---- lfs-development/prologue/architecture.xml	2021-02-04 11:26:28.836574934 +0000
-+++ lfs-wip/prologue/architecture.xml	2021-02-04 11:27:18.035621492 +0000
+--- lfs-development/prologue/architecture.xml	2021-02-05 18:55:24.536270941 +0000
++++ lfs-wip/prologue/architecture.xml	2021-02-05 18:56:51.023081916 +0000
 @@ -20,6 +20,10 @@
  distribution can be installed and used as a host system on a 64-bit AMD/Intel
  computer.</para>

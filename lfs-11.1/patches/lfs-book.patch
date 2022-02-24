@@ -1,0 +1,423 @@
+diff -Naur lfs-development/chapter04/addinguser.xml lfs-ppc/chapter04/addinguser.xml
+--- lfs-development/chapter04/addinguser.xml	2022-02-24 00:23:52.697427647 +0000
++++ lfs-ppc/chapter04/addinguser.xml	2022-02-24 00:24:51.393281491 +0000
+@@ -82,7 +82,7 @@
+ 
+ <screen><userinput>chown -v lfs $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools}
+ case $(uname -m) in
+-  x86_64) chown -v lfs $LFS/lib64 ;;
++  *64) chown -v lfs $LFS/lib64 ;;
+ esac</userinput></screen>
+ 
+   <para>If a separate working directory was created as suggested, give
+diff -Naur lfs-development/chapter04/creatingminlayout.xml lfs-ppc/chapter04/creatingminlayout.xml
+--- lfs-development/chapter04/creatingminlayout.xml	2022-02-24 00:23:52.697427647 +0000
++++ lfs-ppc/chapter04/creatingminlayout.xml	2022-02-24 00:24:51.393281491 +0000
+@@ -27,7 +27,7 @@
+ done
+ 
+ case $(uname -m) in
+-  x86_64) mkdir -pv $LFS/lib64 ;;
++  *64) mkdir -pv $LFS/lib64 ;;
+ esac</userinput></screen>
+ 
+   <para>Programs in <xref linkend="chapter-temporary-tools"/> will be compiled
+diff -Naur lfs-development/chapter04/settingenviron.xml lfs-ppc/chapter04/settingenviron.xml
+--- lfs-development/chapter04/settingenviron.xml	2022-02-24 00:23:52.697427647 +0000
++++ lfs-ppc/chapter04/settingenviron.xml	2022-02-24 00:24:51.393281491 +0000
+@@ -42,7 +42,10 @@
+ umask 022
+ LFS=/mnt/lfs
+ LC_ALL=POSIX
+-LFS_TGT=$(uname -m)-lfs-linux-gnu
++case $(uname -m) in
++    arm*) LFS_TGT=$(uname -m)-lfs-linux-gnueabihf ;;
++    *) LFS_TGT=$(uname -m)-lfs-linux-gnu ;;
++esac
+ PATH=/usr/bin
+ if [ ! -L /bin ]; then PATH=/bin:$PATH; fi
+ PATH=$LFS/tools/bin:$PATH
+diff -Naur lfs-development/chapter05/gcc-pass1.xml lfs-ppc/chapter05/gcc-pass1.xml
+--- lfs-development/chapter05/gcc-pass1.xml	2022-02-24 00:23:52.697427647 +0000
++++ lfs-ppc/chapter05/gcc-pass1.xml	2022-02-24 00:24:51.393281491 +0000
+@@ -62,7 +62,7 @@
+ tar -xf ../mpc-&mpc-version;.tar.gz
+ mv -v mpc-&mpc-version; mpc</userinput></screen>
+ 
+-    <para>On x86_64 hosts, set the default directory name for
++    <para>On 64 bit hosts, set the default directory name for
+     64-bit libraries to <quote>lib</quote>:</para>
+ 
+ <screen><userinput remap="pre">case $(uname -m) in
+@@ -70,6 +70,28 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+  ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++ ;;
++  aarch64)
++    sed -e '/mabi.lp64=/s/lib64/lib/' \
++    -i.orig gcc/config/aarch64/t-aarch64-linux
++ ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+     <para>The GCC documentation recommends building GCC
+diff -Naur lfs-development/chapter05/glibc.xml lfs-ppc/chapter05/glibc.xml
+--- lfs-development/chapter05/glibc.xml	2022-02-24 00:23:52.697427647 +0000
++++ lfs-ppc/chapter05/glibc.xml	2022-02-24 00:24:51.393281491 +0000
+@@ -53,6 +53,12 @@
+     x86_64) ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64
+             ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
+     ;;
++    ppc64) ln -sfv ../lib/ld64.so.1 $LFS/lib64
++           #??ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
++    ;;
++    aarch64) ln -sfv ../lib/ld-linux-aarch.so.1 $LFS/lib64
++           #??ln -sfv ../lib/ld-linux-x86-64.so.2 $LFS/lib64/ld-lsb-x86-64.so.3
++    ;;
+ esac</userinput></screen>
+ 
+     <note>
+@@ -90,6 +96,7 @@
+       --host=$LFS_TGT                    \
+       --build=$(../scripts/config.guess) \
+       --enable-kernel=&min-kernel;                \
++      --disable-werror \
+       --with-headers=$LFS/usr/include    \
+       libc_cv_slibdir=/usr/lib</userinput></screen>
+ 
+@@ -197,16 +204,19 @@
+ 
+ <screen><userinput>echo 'int main(){}' &gt; dummy.c
+ $LFS_TGT-gcc dummy.c
+-readelf -l a.out | grep '/ld-linux'</userinput></screen>
++readelf -l a.out | grep '/ld'</userinput></screen>
+ 
+       <para>If everything is working correctly, there should be no errors,
+       and the output of the last command will be of the form:</para>
+ 
+ <screen><computeroutput>[Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]</computeroutput></screen>
+ 
+-      <para>Note that for 32-bit machines, the interpreter name will be
++      <para>Note that for 32 x86 bit machines, the interpreter name will be
+       <filename>/lib/ld-linux.so.2</filename>.</para>
+ 
++      <para>Note that for non IA machines, the interpreter name will 
++      be different than either of the above</para>
++
+       <para>If the output is not shown as above or there was no output at all,
+       then something is wrong. Investigate and retrace the steps to find out
+       where the problem is and correct it. This issue must be resolved before
+diff -Naur lfs-development/chapter06/coreutils.xml lfs-ppc/chapter06/coreutils.xml
+--- lfs-development/chapter06/coreutils.xml	2022-02-24 00:23:52.697427647 +0000
++++ lfs-ppc/chapter06/coreutils.xml	2022-02-24 00:24:51.393281491 +0000
+@@ -45,6 +45,10 @@
+ 
+     <para>Prepare Coreutils for compilation:</para>
+ 
++<screen><userinput remap="pre">
++    patch -Np1 -i ../coreutils.patch
++</userinput></screen>
++
+ <screen><userinput remap="configure">./configure --prefix=/usr                     \
+             --host=$LFS_TGT                   \
+             --build=$(build-aux/config.guess) \
+diff -Naur lfs-development/chapter06/gcc-pass2.xml lfs-ppc/chapter06/gcc-pass2.xml
+--- lfs-development/chapter06/gcc-pass2.xml	2022-02-24 00:23:52.701427638 +0000
++++ lfs-ppc/chapter06/gcc-pass2.xml	2022-02-24 00:24:51.397281481 +0000
+@@ -60,8 +60,31 @@
+ <screen><userinput remap="pre">case $(uname -m) in
+   x86_64)
+     sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
+-  ;;
++ ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++ ;;
++  aarch64)
++    sed -e '/mabi.lp64=/s/lib64/lib/' \
++    -i.orig gcc/config/aarch64/t-aarch64-linux
++ ;;
+ esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++ ;;
++esac</userinput></screen>
++
+ <!--
+     <para>Fix an issue with GCC-10.1 when building with a cross
+     compiler:</para>
+diff -Naur lfs-development/chapter07/changingowner.xml lfs-ppc/chapter07/changingowner.xml
+--- lfs-development/chapter07/changingowner.xml	2022-02-24 00:23:52.701427638 +0000
++++ lfs-ppc/chapter07/changingowner.xml	2022-02-24 00:24:51.397281481 +0000
+@@ -35,7 +35,7 @@
+ 
+ <screen><userinput>chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
+ case $(uname -m) in
+-  x86_64) chown -R root:root $LFS/lib64 ;;
++  *64) chown -R root:root $LFS/lib64 ;;
+ esac</userinput></screen>
+ 
+ </sect1>
+diff -Naur lfs-development/chapter07/libstdc++-pass2.xml lfs-ppc/chapter07/libstdc++-pass2.xml
+--- lfs-development/chapter07/libstdc++-pass2.xml	2022-02-24 00:23:52.701427638 +0000
++++ lfs-ppc/chapter07/libstdc++-pass2.xml	2022-02-24 00:24:51.397281481 +0000
+@@ -62,13 +62,26 @@
+ 
+     <para>Prepare libstdc++ for compilation:</para>
+ 
+-<screen><userinput remap="configure">../libstdc++-v3/configure            \
++<screen><userinput remap="configure">case $(uname -m) in
++  armv*) 
++   ../libstdc++-v3/configure            \
++    CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
++    --prefix=/usr                    \
++    --disable-multilib               \
++    --disable-nls                    \
++    --host=$(uname -m)-lfs-linux-gnueabihf \
++    --disable-libstdcxx-pch
++ ;;
++ *)
++   ../libstdc++-v3/configure            \
+     CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
+     --prefix=/usr                    \
+     --disable-multilib               \
+     --disable-nls                    \
+     --host=$(uname -m)-lfs-linux-gnu \
+-    --disable-libstdcxx-pch</userinput></screen>
++    --disable-libstdcxx-pch
++ ;;
++esac</userinput></screen>
+ 
+     <variablelist>
+       <title>The meaning of the configure options:</title>
+diff -Naur lfs-development/chapter08/chapter08.xml lfs-ppc/chapter08/chapter08.xml
+--- lfs-development/chapter08/chapter08.xml	2022-02-24 00:23:52.701427638 +0000
++++ lfs-ppc/chapter08/chapter08.xml	2022-02-24 00:24:51.397281481 +0000
+@@ -71,7 +71,6 @@
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gawk.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="findutils.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="groff.xml"/>
+-  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="grub.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="gzip.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="iproute2.xml"/>
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="kbd.xml"/>
+diff -Naur lfs-development/chapter08/coreutils.xml lfs-ppc/chapter08/coreutils.xml
+--- lfs-development/chapter08/coreutils.xml	2022-02-24 00:23:52.701427638 +0000
++++ lfs-ppc/chapter08/coreutils.xml	2022-02-24 00:24:51.397281481 +0000
+@@ -41,11 +41,15 @@
+   <sect2 role="installation">
+     <title>Installation of Coreutils</title>
+ 
++<screen><userinput remap="pre">
++    patch -Np1 -i ../coreutils.patch
++</userinput></screen>
++
+     <para>POSIX requires that programs from Coreutils recognize character
+     boundaries correctly even in multibyte locales. The following patch fixes
+     this non-compliance and other internationalization-related bugs.</para>
+ 
+-<screen><userinput remap="pre">patch -Np1 -i ../&coreutils-i18n-patch;</userinput></screen>
++<screen><userinput remap="pre">#patch -Np1 -i ../&coreutils-i18n-patch;</userinput></screen>
+ 
+     <note>
+       <para>In the past, many bugs were found in this patch. When reporting new
+diff -Naur lfs-development/chapter08/gcc.xml lfs-ppc/chapter08/gcc.xml
+--- lfs-development/chapter08/gcc.xml	2022-02-24 00:23:52.705427628 +0000
++++ lfs-ppc/chapter08/gcc.xml	2022-02-24 00:24:51.401281471 +0000
+@@ -57,6 +57,28 @@
+     sed -e '/m64=/s/lib64/lib/' \
+         -i.orig gcc/config/i386/t-linux64
+   ;;
++  ppc64)
++    sed -e '/m64=/s/lib64/lib/' \
++        -i.orig gcc/config/rs6000/t-linux64
++  ;;
++  aarch64)
++    sed -e '/mabi.lp64=/s/lib64/lib/' \
++    -i.orig gcc/config/aarch64/t-aarch64-linux
++  ;;
++esac</userinput></screen>
++
++    <para>For ARM, patch to make use of floating point unit</para>
++
++<screen><userinput remap="pre">case $(uname -m) in
++  armv6l)
++    patch -Np1 -i ../gcc-10.2.0-armv6.patch
++ ;;
++  armv7l)
++    patch -Np1 -i ../gcc-10.2.0-armv7.patch
++ ;;
++  armv8l)
++    patch -Np1 -i ../gcc-10.2.0-armv8.patch
++ ;;
+ esac</userinput></screen>
+ 
+     <para>The GCC documentation recommends building GCC in a dedicated build directory:</para>
+@@ -174,7 +196,7 @@
+     <systemitem class="username">root</systemitem> user and group:</para>
+ 
+ <screen><userinput remap="install">chown -v -R root:root \
+-    /usr/lib/gcc/*linux-gnu/&gcc-version;/include{,-fixed}</userinput></screen>
++    /usr/lib/gcc/*linux-gnu*/&gcc-version;/include{,-fixed}</userinput></screen>
+ 
+     <para>Create a symlink required by the <ulink
+     url="https://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03s09.html">FHS</ulink>
+diff -Naur lfs-development/chapter08/glibc.xml lfs-ppc/chapter08/glibc.xml
+--- lfs-development/chapter08/glibc.xml	2022-02-24 00:23:52.705427628 +0000
++++ lfs-ppc/chapter08/glibc.xml	2022-02-24 00:24:51.401281471 +0000
+@@ -141,6 +141,7 @@
+ <!--<screen><userinput remap="make">case $(uname -m) in
+   i?86)   ln -sfnv $PWD/elf/ld-linux.so.2        /lib ;;
+   x86_64) ln -sfnv $PWD/elf/ld-linux-x86-64.so.2 /lib ;;
++  ppc64) ln -sfnv $PWD/elf/ld.so.1 /lib ;;
+ esac</userinput></screen>
+ 
+     <note><para>The symbolic link above is needed to run the tests at this
+diff -Naur lfs-development/chapter08/gmp.xml lfs-ppc/chapter08/gmp.xml
+--- lfs-development/chapter08/gmp.xml	2022-02-24 00:23:52.705427628 +0000
++++ lfs-ppc/chapter08/gmp.xml	2022-02-24 00:24:51.401281471 +0000
+@@ -60,6 +60,9 @@
+ cp -v configfsf.sub   config.sub</userinput></screen></para>
+     </note>
+ 
++<screen><userinput remap="pre"> cp -v configfsf.guess config.guess
++cp -v configfsf.sub   config.sub </userinput></screen>
++
+     <para>Prepare GMP for compilation:</para>
+ 
+ <screen><userinput remap="configure">./configure --prefix=/usr    \
+diff -Naur lfs-development/chapter08/libffi.xml lfs-ppc/chapter08/libffi.xml
+--- lfs-development/chapter08/libffi.xml	2022-02-24 00:23:52.705427628 +0000
++++ lfs-ppc/chapter08/libffi.xml	2022-02-24 00:24:51.401281471 +0000
+@@ -50,6 +50,15 @@
+       Illegal Operation Errors.</para>
+     </note>
+ 
++
++    <para>Fix powerpc compile error:</para>
++
++<screen><userinput remap="pre">
++case $(uname -m) in
++ppc) sed -e 's@typedef __int128 float128;@typedef char float128[16] __attribute__((aligned(16)));@' -i src/powerpc/ffi_powerpc.h ;;
++esac
++</userinput></screen>
++
+     <para>Prepare libffi for compilation:</para>
+ 
+     <screen><userinput remap="configure">./configure --prefix=/usr          \
+diff -Naur lfs-development/chapter08/openssl.xml lfs-ppc/chapter08/openssl.xml
+--- lfs-development/chapter08/openssl.xml	2022-02-24 00:23:52.705427628 +0000
++++ lfs-ppc/chapter08/openssl.xml	2022-02-24 00:24:51.401281471 +0000
+@@ -45,11 +45,37 @@
+ 
+     <para>Prepare OpenSSL for compilation:</para>
+ 
+-<screen><userinput remap="configure">./config --prefix=/usr         \
++<screen><userinput remap="configure">case $(uname -m) in
++    ppc64) ./Configure linux-ppc64 --prefix=/usr         \
++          --openssldir=/etc/ssl \
++          --libdir=lib          \
++          shared                \
++         zlib-dynamic 
++         make depend  ;;
++    ppc) ./config --prefix=/usr         \
+          --openssldir=/etc/ssl \
+          --libdir=lib          \
+          shared                \
+-         zlib-dynamic</userinput></screen>
++         zlib-dynamic 
++         make depend  ;;
++     aarch64) ./Configure linux-aarch64 --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic 
++         make depend  ;;
++     arm) ./Configure linux-armv4 --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic 
++         make depend  ;;
++     *) ./config --prefix=/usr         \
++         --openssldir=/etc/ssl \
++         --libdir=lib          \
++         shared                \
++         zlib-dynamic  ;;
++esac</userinput></screen>
+ 
+     <para>Compile the package:</para>
+ 
+diff -Naur lfs-development/chapter09/usage.xml lfs-ppc/chapter09/usage.xml
+--- lfs-development/chapter09/usage.xml	2022-02-24 00:23:52.709427618 +0000
++++ lfs-ppc/chapter09/usage.xml	2022-02-24 00:24:51.401281471 +0000
+@@ -85,6 +85,9 @@
+ 4:2345:respawn:/sbin/agetty tty4 9600
+ 5:2345:respawn:/sbin/agetty tty5 9600
+ 6:2345:respawn:/sbin/agetty tty6 9600
++#
++# modify and enable following line for serial console.
++#s1:2:respawn:/sbin/agetty -L 115200 ttyS0 vt100
+ 
+ # End /etc/inittab</literal>
+ EOF</userinput></screen>
+diff -Naur lfs-development/chapter10/kernel.xml lfs-ppc/chapter10/kernel.xml
+--- lfs-development/chapter10/kernel.xml	2022-02-24 00:23:52.709427618 +0000
++++ lfs-ppc/chapter10/kernel.xml	2022-02-24 00:28:03.520803079 +0000
+@@ -248,7 +248,13 @@
+     the automatic setup of the boot process described in the next section.  The
+     following command assumes an x86 architecture:</para>
+ 
+-<screen><userinput remap="install">cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version;</userinput></screen>
++<screen><userinput remap="install"> case $(uname -m) in
++      x86_64) cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      *86) cp -iv arch/x86/boot/bzImage /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      ppc*) cp -iv vmlinux /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      arm*) cp -iv vmlinux /boot/vmlinuz-&linux-version;-lfs-&version; ;;
++      esac
++</userinput></screen>
+ 
+     <para><filename>System.map</filename> is a symbol file for the kernel.
+     It maps the function entry points of every function in the kernel API,
+diff -Naur lfs-development/prologue/architecture.xml lfs-ppc/prologue/architecture.xml
+--- lfs-development/prologue/architecture.xml	2022-02-24 00:23:52.713427608 +0000
++++ lfs-ppc/prologue/architecture.xml	2022-02-24 00:24:51.405281461 +0000
+@@ -20,6 +20,10 @@
+ distribution can be installed and used as a host system on a 64-bit AMD/Intel
+ computer.</para>
+ 
++<para>This book is a modified version of the standard LFS book and contains 
++modifications to the text and instructions that are intended to aid in 
++the building of LFS for CPU architectures other than AMD/Intel.</para>
++
+ <para>For building LFS, the gain of building on a 64-bit system
+ compared to a 32-bit system is minimal.
+ For example, in a test build of LFS-9.1 on a Core i7-4790 CPU based system,
